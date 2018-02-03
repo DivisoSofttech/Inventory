@@ -26,6 +26,9 @@ public class Status implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "reference")
+    private String reference;
+
     @NotNull
     @Column(name = "name", nullable = false)
     private String name;
@@ -50,6 +53,19 @@ public class Status implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getReference() {
+        return reference;
+    }
+
+    public Status reference(String reference) {
+        this.reference = reference;
+        return this;
+    }
+
+    public void setReference(String reference) {
+        this.reference = reference;
     }
 
     public String getName() {
@@ -153,6 +169,7 @@ public class Status implements Serializable {
     public String toString() {
         return "Status{" +
             "id=" + getId() +
+            ", reference='" + getReference() + "'" +
             ", name='" + getName() + "'" +
             ", description='" + getDescription() + "'" +
             "}";

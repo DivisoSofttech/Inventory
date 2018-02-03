@@ -73,7 +73,7 @@
             ]
         },
         {
-            "fieldName": "sarchkey",
+            "fieldName": "searchkey",
             "fieldType": "String",
             "fieldValidateRules": [
                 "required"
@@ -104,7 +104,7 @@
             "fieldType": "String"
         },
         {
-            "fieldName": "isVisible",
+            "fieldName": "visible",
             "fieldType": "Boolean"
         },
         {

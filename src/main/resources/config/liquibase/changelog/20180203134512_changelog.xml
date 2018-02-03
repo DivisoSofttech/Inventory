@@ -1,0 +1,38 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <changeSet author="divisolxi (generated)" id="1517665523855-1">
+        <addColumn tableName="status">
+            <column name="reference" type="varchar(255)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="divisolxi (generated)" id="1517665523855-2">
+        <addForeignKeyConstraint baseColumnNames="status_id" baseTableName="stock" constraintName="FK3cqvoj87nxtyypkdxj01b38in" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="status"/>
+    </changeSet>
+    <changeSet author="divisolxi (generated)" id="1517665523855-3">
+        <addForeignKeyConstraint baseColumnNames="stocks_id" baseTableName="stock_stock_lines" constraintName="FKdkhflx71p4l33ygqrqxquuolx" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="stock"/>
+    </changeSet>
+    <changeSet author="divisolxi (generated)" id="1517665523855-4">
+        <addForeignKeyConstraint baseColumnNames="product_id" baseTableName="note" constraintName="FKf4dpmsc2g563s6r95gx2jpbh4" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="product"/>
+    </changeSet>
+    <changeSet author="divisolxi (generated)" id="1517665523855-5">
+        <addForeignKeyConstraint baseColumnNames="tax_category_id" baseTableName="tax" constraintName="FKfowlj7ueu444c5f5phiqlx6k1" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="tax_category"/>
+    </changeSet>
+    <changeSet author="divisolxi (generated)" id="1517665523855-6">
+        <addForeignKeyConstraint baseColumnNames="product_id" baseTableName="tax" constraintName="FKkw5gig7yqd6edrxxdkuoc0a4u" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="product"/>
+    </changeSet>
+    <changeSet author="divisolxi (generated)" id="1517665523855-7">
+        <addForeignKeyConstraint baseColumnNames="product_id" baseTableName="stock_line" constraintName="FKthx2s3d7m3t8ybnn12v2ua932" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="product"/>
+    </changeSet>
+    <changeSet author="divisolxi (generated)" id="1517665523855-8">
+        <addForeignKeyConstraint baseColumnNames="stock_lines_id" baseTableName="stock_stock_lines" constraintName="FKti3jw6lcnhaamy6m3df1nrdai" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="stock_line"/>
+    </changeSet>
+    <changeSet author="divisolxi (generated)" id="1517665523855-9">
+        <dropForeignKeyConstraint baseTableName="jhi_user_authority" constraintName="fk_authority_name"/>
+    </changeSet>
+    <changeSet author="divisolxi (generated)" id="1517665523855-10">
+        <dropTable tableName="jhi_authority"/>
+    </changeSet>
+    <changeSet author="divisolxi (generated)" id="1517665523855-11">
+        <dropTable tableName="jhi_user_authority"/>
+    </changeSet>
+</databaseChangeLog>

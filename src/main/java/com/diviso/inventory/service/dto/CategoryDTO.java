@@ -20,7 +20,7 @@ public class CategoryDTO implements Serializable {
     private byte[] image;
     private String imageContentType;
 
-    private Boolean isVisible;
+    private Boolean visible;
 
     private String description;
 
@@ -56,12 +56,12 @@ public class CategoryDTO implements Serializable {
         this.imageContentType = imageContentType;
     }
 
-    public Boolean isIsVisible() {
-        return isVisible;
+    public Boolean isVisible() {
+        return visible;
     }
 
-    public void setIsVisible(Boolean isVisible) {
-        this.isVisible = isVisible;
+    public void setVisible(Boolean visible) {
+        this.visible = visible;
     }
 
     public String getDescription() {
@@ -99,7 +99,7 @@ public class CategoryDTO implements Serializable {
             "id=" + getId() +
             ", name='" + getName() + "'" +
             ", image='" + getImage() + "'" +
-            ", isVisible='" + isIsVisible() + "'" +
+            ", visible='" + isVisible() + "'" +
             ", description='" + getDescription() + "'" +
             "}";
     }

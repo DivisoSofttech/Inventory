@@ -50,8 +50,8 @@ public class CategoryResourceIntTest {
     private static final String DEFAULT_IMAGE_CONTENT_TYPE = "image/jpg";
     private static final String UPDATED_IMAGE_CONTENT_TYPE = "image/png";
 
-    private static final Boolean DEFAULT_IS_VISIBLE = false;
-    private static final Boolean UPDATED_IS_VISIBLE = true;
+    private static final Boolean DEFAULT_VISIBLE = false;
+    private static final Boolean UPDATED_VISIBLE = true;
 
     private static final String DEFAULT_DESCRIPTION = "AAAAAAAAAA";
     private static final String UPDATED_DESCRIPTION = "BBBBBBBBBB";
@@ -103,7 +103,7 @@ public class CategoryResourceIntTest {
             .name(DEFAULT_NAME)
             .image(DEFAULT_IMAGE)
             .imageContentType(DEFAULT_IMAGE_CONTENT_TYPE)
-            .isVisible(DEFAULT_IS_VISIBLE)
+            .visible(DEFAULT_VISIBLE)
             .description(DEFAULT_DESCRIPTION);
         return category;
     }
@@ -132,7 +132,7 @@ public class CategoryResourceIntTest {
         assertThat(testCategory.getName()).isEqualTo(DEFAULT_NAME);
         assertThat(testCategory.getImage()).isEqualTo(DEFAULT_IMAGE);
         assertThat(testCategory.getImageContentType()).isEqualTo(DEFAULT_IMAGE_CONTENT_TYPE);
-        assertThat(testCategory.isIsVisible()).isEqualTo(DEFAULT_IS_VISIBLE);
+        assertThat(testCategory.isVisible()).isEqualTo(DEFAULT_VISIBLE);
         assertThat(testCategory.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
     }
 
@@ -189,7 +189,7 @@ public class CategoryResourceIntTest {
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
             .andExpect(jsonPath("$.[*].imageContentType").value(hasItem(DEFAULT_IMAGE_CONTENT_TYPE)))
             .andExpect(jsonPath("$.[*].image").value(hasItem(Base64Utils.encodeToString(DEFAULT_IMAGE))))
-            .andExpect(jsonPath("$.[*].isVisible").value(hasItem(DEFAULT_IS_VISIBLE.booleanValue())))
+            .andExpect(jsonPath("$.[*].visible").value(hasItem(DEFAULT_VISIBLE.booleanValue())))
             .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())));
     }
 
@@ -207,7 +207,7 @@ public class CategoryResourceIntTest {
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()))
             .andExpect(jsonPath("$.imageContentType").value(DEFAULT_IMAGE_CONTENT_TYPE))
             .andExpect(jsonPath("$.image").value(Base64Utils.encodeToString(DEFAULT_IMAGE)))
-            .andExpect(jsonPath("$.isVisible").value(DEFAULT_IS_VISIBLE.booleanValue()))
+            .andExpect(jsonPath("$.visible").value(DEFAULT_VISIBLE.booleanValue()))
             .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()));
     }
 
@@ -234,7 +234,7 @@ public class CategoryResourceIntTest {
             .name(UPDATED_NAME)
             .image(UPDATED_IMAGE)
             .imageContentType(UPDATED_IMAGE_CONTENT_TYPE)
-            .isVisible(UPDATED_IS_VISIBLE)
+            .visible(UPDATED_VISIBLE)
             .description(UPDATED_DESCRIPTION);
         CategoryDTO categoryDTO = categoryMapper.toDto(updatedCategory);
 
@@ -250,7 +250,7 @@ public class CategoryResourceIntTest {
         assertThat(testCategory.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testCategory.getImage()).isEqualTo(UPDATED_IMAGE);
         assertThat(testCategory.getImageContentType()).isEqualTo(UPDATED_IMAGE_CONTENT_TYPE);
-        assertThat(testCategory.isIsVisible()).isEqualTo(UPDATED_IS_VISIBLE);
+        assertThat(testCategory.isVisible()).isEqualTo(UPDATED_VISIBLE);
         assertThat(testCategory.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
     }
 

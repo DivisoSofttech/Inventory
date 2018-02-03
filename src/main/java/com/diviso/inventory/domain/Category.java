@@ -34,8 +34,8 @@ public class Category implements Serializable {
     @Column(name = "image_content_type")
     private String imageContentType;
 
-    @Column(name = "is_visible")
-    private Boolean isVisible;
+    @Column(name = "visible")
+    private Boolean visible;
 
     @Column(name = "description")
     private String description;
@@ -88,17 +88,17 @@ public class Category implements Serializable {
         this.imageContentType = imageContentType;
     }
 
-    public Boolean isIsVisible() {
-        return isVisible;
+    public Boolean isVisible() {
+        return visible;
     }
 
-    public Category isVisible(Boolean isVisible) {
-        this.isVisible = isVisible;
+    public Category visible(Boolean visible) {
+        this.visible = visible;
         return this;
     }
 
-    public void setIsVisible(Boolean isVisible) {
-        this.isVisible = isVisible;
+    public void setVisible(Boolean visible) {
+        this.visible = visible;
     }
 
     public String getDescription() {
@@ -142,7 +142,7 @@ public class Category implements Serializable {
             ", name='" + getName() + "'" +
             ", image='" + getImage() + "'" +
             ", imageContentType='" + getImageContentType() + "'" +
-            ", isVisible='" + isIsVisible() + "'" +
+            ", visible='" + isVisible() + "'" +
             ", description='" + getDescription() + "'" +
             "}";
     }

@@ -41,6 +41,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = InventoryApp.class)
 public class StatusResourceIntTest {
 
+    private static final String DEFAULT_REFERENCE = "AAAAAAAAAA";
+    private static final String UPDATED_REFERENCE = "BBBBBBBBBB";
+
     private static final String DEFAULT_NAME = "AAAAAAAAAA";
     private static final String UPDATED_NAME = "BBBBBBBBBB";
 
@@ -91,6 +94,7 @@ public class StatusResourceIntTest {
      */
     public static Status createEntity(EntityManager em) {
         Status status = new Status()
+            .reference(DEFAULT_REFERENCE)
             .name(DEFAULT_NAME)
             .description(DEFAULT_DESCRIPTION);
         return status;
@@ -117,6 +121,7 @@ public class StatusResourceIntTest {
         List<Status> statusList = statusRepository.findAll();
         assertThat(statusList).hasSize(databaseSizeBeforeCreate + 1);
         Status testStatus = statusList.get(statusList.size() - 1);
+        assertThat(testStatus.getReference()).isEqualTo(DEFAULT_REFERENCE);
         assertThat(testStatus.getName()).isEqualTo(DEFAULT_NAME);
         assertThat(testStatus.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
     }
@@ -171,6 +176,7 @@ public class StatusResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(status.getId().intValue())))
+            .andExpect(jsonPath("$.[*].reference").value(hasItem(DEFAULT_REFERENCE.toString())))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
             .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())));
     }
@@ -186,6 +192,7 @@ public class StatusResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(status.getId().intValue()))
+            .andExpect(jsonPath("$.reference").value(DEFAULT_REFERENCE.toString()))
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()))
             .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()));
     }
@@ -210,6 +217,7 @@ public class StatusResourceIntTest {
         // Disconnect from session so that the updates on updatedStatus are not directly saved in db
         em.detach(updatedStatus);
         updatedStatus
+            .reference(UPDATED_REFERENCE)
             .name(UPDATED_NAME)
             .description(UPDATED_DESCRIPTION);
         StatusDTO statusDTO = statusMapper.toDto(updatedStatus);
@@ -223,6 +231,7 @@ public class StatusResourceIntTest {
         List<Status> statusList = statusRepository.findAll();
         assertThat(statusList).hasSize(databaseSizeBeforeUpdate);
         Status testStatus = statusList.get(statusList.size() - 1);
+        assertThat(testStatus.getReference()).isEqualTo(UPDATED_REFERENCE);
         assertThat(testStatus.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testStatus.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
     }

@@ -15,7 +15,7 @@
             "fieldTypeBlobContent": "image"
         },
         {
-            "fieldName": "isVisible",
+            "fieldName": "visible",
             "fieldType": "Boolean"
         },
         {

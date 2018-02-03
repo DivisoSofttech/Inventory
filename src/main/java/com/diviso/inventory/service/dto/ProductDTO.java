@@ -20,7 +20,7 @@ public class ProductDTO implements Serializable {
     private String reference;
 
     @NotNull
-    private String sarchkey;
+    private String searchkey;
 
     @NotNull
     private String name;
@@ -35,7 +35,7 @@ public class ProductDTO implements Serializable {
 
     private String mpn;
 
-    private Boolean isVisible;
+    private Boolean visible;
 
     private LocalDate dateOfMfd;
 
@@ -73,12 +73,12 @@ public class ProductDTO implements Serializable {
         this.reference = reference;
     }
 
-    public String getSarchkey() {
-        return sarchkey;
+    public String getSearchkey() {
+        return searchkey;
     }
 
-    public void setSarchkey(String sarchkey) {
-        this.sarchkey = sarchkey;
+    public void setSearchkey(String searchkey) {
+        this.searchkey = searchkey;
     }
 
     public String getName() {
@@ -129,12 +129,12 @@ public class ProductDTO implements Serializable {
         this.mpn = mpn;
     }
 
-    public Boolean isIsVisible() {
-        return isVisible;
+    public Boolean isVisible() {
+        return visible;
     }
 
-    public void setIsVisible(Boolean isVisible) {
-        this.isVisible = isVisible;
+    public void setVisible(Boolean visible) {
+        this.visible = visible;
     }
 
     public LocalDate getDateOfMfd() {
@@ -243,13 +243,13 @@ public class ProductDTO implements Serializable {
         return "ProductDTO{" +
             "id=" + getId() +
             ", reference='" + getReference() + "'" +
-            ", sarchkey='" + getSarchkey() + "'" +
+            ", searchkey='" + getSearchkey() + "'" +
             ", name='" + getName() + "'" +
             ", image='" + getImage() + "'" +
             ", description='" + getDescription() + "'" +
             ", sku='" + getSku() + "'" +
             ", mpn='" + getMpn() + "'" +
-            ", isVisible='" + isIsVisible() + "'" +
+            ", visible='" + isVisible() + "'" +
             ", dateOfMfd='" + getDateOfMfd() + "'" +
             ", dateOfExpiry='" + getDateOfExpiry() + "'" +
             ", maximumStockLevel=" + getMaximumStockLevel() +

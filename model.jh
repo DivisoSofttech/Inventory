@@ -1,12 +1,12 @@
 entity Product{
 	reference String required,//make unique
-	sarchkey String required , //make unique
+	searchkey String required , //make unique
 	name String required,
 	image ImageBlob,
 	description String,
 	sku String, //unique
 	mpn String, //unique
-	isVisible Boolean,
+	visible Boolean,
 	dateOfMfd LocalDate,
 	dateOfExpiry LocalDate,
 	maximumStockLevel Double,
@@ -27,7 +27,7 @@ entity Uom{
 entity Category{
 	name String required, //make unique
 	image ImageBlob,
-	isVisible Boolean,
+	visible Boolean,
 	description String
 }
 entity Label{
@@ -39,6 +39,7 @@ entity Note{
 	dateOfCreation LocalDate
 }
 entity Status{
+	reference String,
 	name String required, //unique
 	description String
 }

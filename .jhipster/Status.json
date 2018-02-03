@@ -16,6 +16,10 @@
     ],
     "fields": [
         {
+            "fieldName": "reference",
+            "fieldType": "String"
+        },
+        {
             "fieldName": "name",
             "fieldType": "String",
             "fieldValidateRules": [

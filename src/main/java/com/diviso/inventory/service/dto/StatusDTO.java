@@ -14,6 +14,8 @@ public class StatusDTO implements Serializable {
 
     private Long id;
 
+    private String reference;
+
     @NotNull
     private String name;
 
@@ -25,6 +27,14 @@ public class StatusDTO implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getReference() {
+        return reference;
+    }
+
+    public void setReference(String reference) {
+        this.reference = reference;
     }
 
     public String getName() {
@@ -68,6 +78,7 @@ public class StatusDTO implements Serializable {
     public String toString() {
         return "StatusDTO{" +
             "id=" + getId() +
+            ", reference='" + getReference() + "'" +
             ", name='" + getName() + "'" +
             ", description='" + getDescription() + "'" +
             "}";

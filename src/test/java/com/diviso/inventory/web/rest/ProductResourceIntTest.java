@@ -47,8 +47,8 @@ public class ProductResourceIntTest {
     private static final String DEFAULT_REFERENCE = "AAAAAAAAAA";
     private static final String UPDATED_REFERENCE = "BBBBBBBBBB";
 
-    private static final String DEFAULT_SARCHKEY = "AAAAAAAAAA";
-    private static final String UPDATED_SARCHKEY = "BBBBBBBBBB";
+    private static final String DEFAULT_SEARCHKEY = "AAAAAAAAAA";
+    private static final String UPDATED_SEARCHKEY = "BBBBBBBBBB";
 
     private static final String DEFAULT_NAME = "AAAAAAAAAA";
     private static final String UPDATED_NAME = "BBBBBBBBBB";
@@ -67,8 +67,8 @@ public class ProductResourceIntTest {
     private static final String DEFAULT_MPN = "AAAAAAAAAA";
     private static final String UPDATED_MPN = "BBBBBBBBBB";
 
-    private static final Boolean DEFAULT_IS_VISIBLE = false;
-    private static final Boolean UPDATED_IS_VISIBLE = true;
+    private static final Boolean DEFAULT_VISIBLE = false;
+    private static final Boolean UPDATED_VISIBLE = true;
 
     private static final LocalDate DEFAULT_DATE_OF_MFD = LocalDate.ofEpochDay(0L);
     private static final LocalDate UPDATED_DATE_OF_MFD = LocalDate.now(ZoneId.systemDefault());
@@ -127,14 +127,14 @@ public class ProductResourceIntTest {
     public static Product createEntity(EntityManager em) {
         Product product = new Product()
             .reference(DEFAULT_REFERENCE)
-            .sarchkey(DEFAULT_SARCHKEY)
+            .searchkey(DEFAULT_SEARCHKEY)
             .name(DEFAULT_NAME)
             .image(DEFAULT_IMAGE)
             .imageContentType(DEFAULT_IMAGE_CONTENT_TYPE)
             .description(DEFAULT_DESCRIPTION)
             .sku(DEFAULT_SKU)
             .mpn(DEFAULT_MPN)
-            .isVisible(DEFAULT_IS_VISIBLE)
+            .visible(DEFAULT_VISIBLE)
             .dateOfMfd(DEFAULT_DATE_OF_MFD)
             .dateOfExpiry(DEFAULT_DATE_OF_EXPIRY)
             .maximumStockLevel(DEFAULT_MAXIMUM_STOCK_LEVEL)
@@ -164,14 +164,14 @@ public class ProductResourceIntTest {
         assertThat(productList).hasSize(databaseSizeBeforeCreate + 1);
         Product testProduct = productList.get(productList.size() - 1);
         assertThat(testProduct.getReference()).isEqualTo(DEFAULT_REFERENCE);
-        assertThat(testProduct.getSarchkey()).isEqualTo(DEFAULT_SARCHKEY);
+        assertThat(testProduct.getSearchkey()).isEqualTo(DEFAULT_SEARCHKEY);
         assertThat(testProduct.getName()).isEqualTo(DEFAULT_NAME);
         assertThat(testProduct.getImage()).isEqualTo(DEFAULT_IMAGE);
         assertThat(testProduct.getImageContentType()).isEqualTo(DEFAULT_IMAGE_CONTENT_TYPE);
         assertThat(testProduct.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
         assertThat(testProduct.getSku()).isEqualTo(DEFAULT_SKU);
         assertThat(testProduct.getMpn()).isEqualTo(DEFAULT_MPN);
-        assertThat(testProduct.isIsVisible()).isEqualTo(DEFAULT_IS_VISIBLE);
+        assertThat(testProduct.isVisible()).isEqualTo(DEFAULT_VISIBLE);
         assertThat(testProduct.getDateOfMfd()).isEqualTo(DEFAULT_DATE_OF_MFD);
         assertThat(testProduct.getDateOfExpiry()).isEqualTo(DEFAULT_DATE_OF_EXPIRY);
         assertThat(testProduct.getMaximumStockLevel()).isEqualTo(DEFAULT_MAXIMUM_STOCK_LEVEL);
@@ -219,10 +219,10 @@ public class ProductResourceIntTest {
 
     @Test
     @Transactional
-    public void checkSarchkeyIsRequired() throws Exception {
+    public void checkSearchkeyIsRequired() throws Exception {
         int databaseSizeBeforeTest = productRepository.findAll().size();
         // set the field null
-        product.setSarchkey(null);
+        product.setSearchkey(null);
 
         // Create the Product, which fails.
         ProductDTO productDTO = productMapper.toDto(product);
@@ -267,14 +267,14 @@ public class ProductResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(product.getId().intValue())))
             .andExpect(jsonPath("$.[*].reference").value(hasItem(DEFAULT_REFERENCE.toString())))
-            .andExpect(jsonPath("$.[*].sarchkey").value(hasItem(DEFAULT_SARCHKEY.toString())))
+            .andExpect(jsonPath("$.[*].searchkey").value(hasItem(DEFAULT_SEARCHKEY.toString())))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
             .andExpect(jsonPath("$.[*].imageContentType").value(hasItem(DEFAULT_IMAGE_CONTENT_TYPE)))
             .andExpect(jsonPath("$.[*].image").value(hasItem(Base64Utils.encodeToString(DEFAULT_IMAGE))))
             .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
             .andExpect(jsonPath("$.[*].sku").value(hasItem(DEFAULT_SKU.toString())))
             .andExpect(jsonPath("$.[*].mpn").value(hasItem(DEFAULT_MPN.toString())))
-            .andExpect(jsonPath("$.[*].isVisible").value(hasItem(DEFAULT_IS_VISIBLE.booleanValue())))
+            .andExpect(jsonPath("$.[*].visible").value(hasItem(DEFAULT_VISIBLE.booleanValue())))
             .andExpect(jsonPath("$.[*].dateOfMfd").value(hasItem(DEFAULT_DATE_OF_MFD.toString())))
             .andExpect(jsonPath("$.[*].dateOfExpiry").value(hasItem(DEFAULT_DATE_OF_EXPIRY.toString())))
             .andExpect(jsonPath("$.[*].maximumStockLevel").value(hasItem(DEFAULT_MAXIMUM_STOCK_LEVEL.doubleValue())))
@@ -293,14 +293,14 @@ public class ProductResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(product.getId().intValue()))
             .andExpect(jsonPath("$.reference").value(DEFAULT_REFERENCE.toString()))
-            .andExpect(jsonPath("$.sarchkey").value(DEFAULT_SARCHKEY.toString()))
+            .andExpect(jsonPath("$.searchkey").value(DEFAULT_SEARCHKEY.toString()))
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()))
             .andExpect(jsonPath("$.imageContentType").value(DEFAULT_IMAGE_CONTENT_TYPE))
             .andExpect(jsonPath("$.image").value(Base64Utils.encodeToString(DEFAULT_IMAGE)))
             .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()))
             .andExpect(jsonPath("$.sku").value(DEFAULT_SKU.toString()))
             .andExpect(jsonPath("$.mpn").value(DEFAULT_MPN.toString()))
-            .andExpect(jsonPath("$.isVisible").value(DEFAULT_IS_VISIBLE.booleanValue()))
+            .andExpect(jsonPath("$.visible").value(DEFAULT_VISIBLE.booleanValue()))
             .andExpect(jsonPath("$.dateOfMfd").value(DEFAULT_DATE_OF_MFD.toString()))
             .andExpect(jsonPath("$.dateOfExpiry").value(DEFAULT_DATE_OF_EXPIRY.toString()))
             .andExpect(jsonPath("$.maximumStockLevel").value(DEFAULT_MAXIMUM_STOCK_LEVEL.doubleValue()))
@@ -328,14 +328,14 @@ public class ProductResourceIntTest {
         em.detach(updatedProduct);
         updatedProduct
             .reference(UPDATED_REFERENCE)
-            .sarchkey(UPDATED_SARCHKEY)
+            .searchkey(UPDATED_SEARCHKEY)
             .name(UPDATED_NAME)
             .image(UPDATED_IMAGE)
             .imageContentType(UPDATED_IMAGE_CONTENT_TYPE)
             .description(UPDATED_DESCRIPTION)
             .sku(UPDATED_SKU)
             .mpn(UPDATED_MPN)
-            .isVisible(UPDATED_IS_VISIBLE)
+            .visible(UPDATED_VISIBLE)
             .dateOfMfd(UPDATED_DATE_OF_MFD)
             .dateOfExpiry(UPDATED_DATE_OF_EXPIRY)
             .maximumStockLevel(UPDATED_MAXIMUM_STOCK_LEVEL)
@@ -352,14 +352,14 @@ public class ProductResourceIntTest {
         assertThat(productList).hasSize(databaseSizeBeforeUpdate);
         Product testProduct = productList.get(productList.size() - 1);
         assertThat(testProduct.getReference()).isEqualTo(UPDATED_REFERENCE);
-        assertThat(testProduct.getSarchkey()).isEqualTo(UPDATED_SARCHKEY);
+        assertThat(testProduct.getSearchkey()).isEqualTo(UPDATED_SEARCHKEY);
         assertThat(testProduct.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testProduct.getImage()).isEqualTo(UPDATED_IMAGE);
         assertThat(testProduct.getImageContentType()).isEqualTo(UPDATED_IMAGE_CONTENT_TYPE);
         assertThat(testProduct.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
         assertThat(testProduct.getSku()).isEqualTo(UPDATED_SKU);
         assertThat(testProduct.getMpn()).isEqualTo(UPDATED_MPN);
-        assertThat(testProduct.isIsVisible()).isEqualTo(UPDATED_IS_VISIBLE);
+        assertThat(testProduct.isVisible()).isEqualTo(UPDATED_VISIBLE);
         assertThat(testProduct.getDateOfMfd()).isEqualTo(UPDATED_DATE_OF_MFD);
         assertThat(testProduct.getDateOfExpiry()).isEqualTo(UPDATED_DATE_OF_EXPIRY);
         assertThat(testProduct.getMaximumStockLevel()).isEqualTo(UPDATED_MAXIMUM_STOCK_LEVEL);

@@ -32,8 +32,8 @@ public class Product implements Serializable {
     private String reference;
 
     @NotNull
-    @Column(name = "sarchkey", nullable = false)
-    private String sarchkey;
+    @Column(name = "searchkey", nullable = false)
+    private String searchkey;
 
     @NotNull
     @Column(name = "name", nullable = false)
@@ -55,8 +55,8 @@ public class Product implements Serializable {
     @Column(name = "mpn")
     private String mpn;
 
-    @Column(name = "is_visible")
-    private Boolean isVisible;
+    @Column(name = "visible")
+    private Boolean visible;
 
     @Column(name = "date_of_mfd")
     private LocalDate dateOfMfd;
@@ -138,17 +138,17 @@ public class Product implements Serializable {
         this.reference = reference;
     }
 
-    public String getSarchkey() {
-        return sarchkey;
+    public String getSearchkey() {
+        return searchkey;
     }
 
-    public Product sarchkey(String sarchkey) {
-        this.sarchkey = sarchkey;
+    public Product searchkey(String searchkey) {
+        this.searchkey = searchkey;
         return this;
     }
 
-    public void setSarchkey(String sarchkey) {
-        this.sarchkey = sarchkey;
+    public void setSearchkey(String searchkey) {
+        this.searchkey = searchkey;
     }
 
     public String getName() {
@@ -229,17 +229,17 @@ public class Product implements Serializable {
         this.mpn = mpn;
     }
 
-    public Boolean isIsVisible() {
-        return isVisible;
+    public Boolean isVisible() {
+        return visible;
     }
 
-    public Product isVisible(Boolean isVisible) {
-        this.isVisible = isVisible;
+    public Product visible(Boolean visible) {
+        this.visible = visible;
         return this;
     }
 
-    public void setIsVisible(Boolean isVisible) {
-        this.isVisible = isVisible;
+    public void setVisible(Boolean visible) {
+        this.visible = visible;
     }
 
     public LocalDate getDateOfMfd() {
@@ -503,14 +503,14 @@ public class Product implements Serializable {
         return "Product{" +
             "id=" + getId() +
             ", reference='" + getReference() + "'" +
-            ", sarchkey='" + getSarchkey() + "'" +
+            ", searchkey='" + getSearchkey() + "'" +
             ", name='" + getName() + "'" +
             ", image='" + getImage() + "'" +
             ", imageContentType='" + getImageContentType() + "'" +
             ", description='" + getDescription() + "'" +
             ", sku='" + getSku() + "'" +
             ", mpn='" + getMpn() + "'" +
-            ", isVisible='" + isIsVisible() + "'" +
+            ", visible='" + isVisible() + "'" +
             ", dateOfMfd='" + getDateOfMfd() + "'" +
             ", dateOfExpiry='" + getDateOfExpiry() + "'" +
             ", maximumStockLevel=" + getMaximumStockLevel() +
