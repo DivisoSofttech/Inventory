@@ -1,0 +1,66 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "product",
+            "otherEntityName": "product",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "reference",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "buyPrice",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "sellPriceInclusive",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "sellPriceExclusive",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "grossProfit",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "margin",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "units",
+            "fieldType": "Double",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "infrastructureId",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "locationId",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "supplierRef",
+            "fieldType": "Long"
+        }
+    ],
+    "changelogDate": "20180203081843",
+    "entityTableName": "stock_line",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "microserviceName": "Inventory"
+}

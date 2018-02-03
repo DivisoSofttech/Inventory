@@ -1,0 +1,99 @@
+entity Product{
+	reference String required,//make unique
+	sarchkey String required , //make unique
+	name String required,
+	image ImageBlob,
+	description String,
+	sku String, //unique
+	mpn String, //unique
+	isVisible Boolean,
+	dateOfMfd LocalDate,
+	dateOfExpiry LocalDate,
+	reOrderLevel Double
+}
+entity Barcode{
+	code String required, //make unique
+	type BarcodeType,
+	description String
+}
+enum BarcodeType {
+	EAN13, EAN8, CODE128, UPCA, UPCE
+}
+entity Uom{
+	name String required, //make unique
+	description String
+}
+entity Category{
+	name String required, //make unique
+	image ImageBlob,
+	isVisible Boolean,
+	description String
+}
+entity Label{
+	name String required, //unique
+	description String
+}
+entity Note{
+	matter String,
+	dateOfCreation LocalDate
+}
+entity Status{
+	name String required, //unique
+	description String
+}
+entity Stock{
+	reference String required, //unique
+	deliveryNoteRef Long,
+	dateOfStockAdded LocalDate,
+	storageCost Double
+}
+entity StockLine{
+	reference String required, //unique
+	buyPrice Double,
+	sellPriceInclusive Double,
+	sellPriceExclusive Double,
+	grossProfit Double,
+	margin Double,
+	units Double required,
+	infrastructureId Long, // note
+	locationId String, // note
+	supplierRef Long
+}
+entity TaxCategory{
+	name String required, //unique
+	description String
+}
+entity Tax{
+	name String required , //unique
+	description String,
+	rate Double required,
+	taxType TaxTypes
+}
+enum TaxTypes {
+	CGST, SGST, IGST, UGST, CESS
+}
+relationship OneToOne{
+	Product{barcode} to Barcode
+	
+}
+relationship OneToMany{
+	Product{notes} to Note,
+	Status{products} to Product,
+	Status{stocks} to Stock,
+	TaxCategory{taxes} to Tax,
+	TaxCategory{products} to Product,
+	Tax{product} to Product,
+	Product{stockLines} to StockLine
+}
+
+relationship ManyToMany{
+	Product{uoms} to Uom,
+	Category{products} to Product,
+	Product{labels} to Label,
+	Stock{stockLines} to StockLine
+	
+}
+
+service all with serviceImpl
+dto all with mapstruct
+paginate all with pagination

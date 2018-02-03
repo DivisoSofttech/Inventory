@@ -1,0 +1,28 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "product",
+            "otherEntityName": "product",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "matter",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "dateOfCreation",
+            "fieldType": "LocalDate"
+        }
+    ],
+    "changelogDate": "20180203081840",
+    "entityTableName": "note",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "microserviceName": "Inventory"
+}
