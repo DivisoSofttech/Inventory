@@ -9,6 +9,7 @@ entity Product{
 	isVisible Boolean,
 	dateOfMfd LocalDate,
 	dateOfExpiry LocalDate,
+	maximumStockLevel Double,
 	reOrderLevel Double
 }
 entity Barcode{
@@ -44,7 +45,7 @@ entity Status{
 entity Stock{
 	reference String required, //unique
 	deliveryNoteRef Long,
-	dateOfStockAdded LocalDate,
+	dateOfStockUpdated LocalDate,
 	storageCost Double
 }
 entity StockLine{
@@ -82,15 +83,16 @@ relationship OneToMany{
 	Status{stocks} to Stock,
 	TaxCategory{taxes} to Tax,
 	TaxCategory{products} to Product,
-	Tax{product} to Product,
-	Product{stockLines} to StockLine
+	Product{stockLines} to StockLine,
+	Product{taxes} to Tax
 }
 
 relationship ManyToMany{
 	Product{uoms} to Uom,
-	Category{products} to Product,
+	Product{categories} to Category,
 	Product{labels} to Label,
 	Stock{stockLines} to StockLine
+	
 	
 }
 

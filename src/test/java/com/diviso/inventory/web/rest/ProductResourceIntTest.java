@@ -76,6 +76,9 @@ public class ProductResourceIntTest {
     private static final LocalDate DEFAULT_DATE_OF_EXPIRY = LocalDate.ofEpochDay(0L);
     private static final LocalDate UPDATED_DATE_OF_EXPIRY = LocalDate.now(ZoneId.systemDefault());
 
+    private static final Double DEFAULT_MAXIMUM_STOCK_LEVEL = 1D;
+    private static final Double UPDATED_MAXIMUM_STOCK_LEVEL = 2D;
+
     private static final Double DEFAULT_RE_ORDER_LEVEL = 1D;
     private static final Double UPDATED_RE_ORDER_LEVEL = 2D;
 
@@ -134,6 +137,7 @@ public class ProductResourceIntTest {
             .isVisible(DEFAULT_IS_VISIBLE)
             .dateOfMfd(DEFAULT_DATE_OF_MFD)
             .dateOfExpiry(DEFAULT_DATE_OF_EXPIRY)
+            .maximumStockLevel(DEFAULT_MAXIMUM_STOCK_LEVEL)
             .reOrderLevel(DEFAULT_RE_ORDER_LEVEL);
         return product;
     }
@@ -170,6 +174,7 @@ public class ProductResourceIntTest {
         assertThat(testProduct.isIsVisible()).isEqualTo(DEFAULT_IS_VISIBLE);
         assertThat(testProduct.getDateOfMfd()).isEqualTo(DEFAULT_DATE_OF_MFD);
         assertThat(testProduct.getDateOfExpiry()).isEqualTo(DEFAULT_DATE_OF_EXPIRY);
+        assertThat(testProduct.getMaximumStockLevel()).isEqualTo(DEFAULT_MAXIMUM_STOCK_LEVEL);
         assertThat(testProduct.getReOrderLevel()).isEqualTo(DEFAULT_RE_ORDER_LEVEL);
     }
 
@@ -272,6 +277,7 @@ public class ProductResourceIntTest {
             .andExpect(jsonPath("$.[*].isVisible").value(hasItem(DEFAULT_IS_VISIBLE.booleanValue())))
             .andExpect(jsonPath("$.[*].dateOfMfd").value(hasItem(DEFAULT_DATE_OF_MFD.toString())))
             .andExpect(jsonPath("$.[*].dateOfExpiry").value(hasItem(DEFAULT_DATE_OF_EXPIRY.toString())))
+            .andExpect(jsonPath("$.[*].maximumStockLevel").value(hasItem(DEFAULT_MAXIMUM_STOCK_LEVEL.doubleValue())))
             .andExpect(jsonPath("$.[*].reOrderLevel").value(hasItem(DEFAULT_RE_ORDER_LEVEL.doubleValue())));
     }
 
@@ -297,6 +303,7 @@ public class ProductResourceIntTest {
             .andExpect(jsonPath("$.isVisible").value(DEFAULT_IS_VISIBLE.booleanValue()))
             .andExpect(jsonPath("$.dateOfMfd").value(DEFAULT_DATE_OF_MFD.toString()))
             .andExpect(jsonPath("$.dateOfExpiry").value(DEFAULT_DATE_OF_EXPIRY.toString()))
+            .andExpect(jsonPath("$.maximumStockLevel").value(DEFAULT_MAXIMUM_STOCK_LEVEL.doubleValue()))
             .andExpect(jsonPath("$.reOrderLevel").value(DEFAULT_RE_ORDER_LEVEL.doubleValue()));
     }
 
@@ -331,6 +338,7 @@ public class ProductResourceIntTest {
             .isVisible(UPDATED_IS_VISIBLE)
             .dateOfMfd(UPDATED_DATE_OF_MFD)
             .dateOfExpiry(UPDATED_DATE_OF_EXPIRY)
+            .maximumStockLevel(UPDATED_MAXIMUM_STOCK_LEVEL)
             .reOrderLevel(UPDATED_RE_ORDER_LEVEL);
         ProductDTO productDTO = productMapper.toDto(updatedProduct);
 
@@ -354,6 +362,7 @@ public class ProductResourceIntTest {
         assertThat(testProduct.isIsVisible()).isEqualTo(UPDATED_IS_VISIBLE);
         assertThat(testProduct.getDateOfMfd()).isEqualTo(UPDATED_DATE_OF_MFD);
         assertThat(testProduct.getDateOfExpiry()).isEqualTo(UPDATED_DATE_OF_EXPIRY);
+        assertThat(testProduct.getMaximumStockLevel()).isEqualTo(UPDATED_MAXIMUM_STOCK_LEVEL);
         assertThat(testProduct.getReOrderLevel()).isEqualTo(UPDATED_RE_ORDER_LEVEL);
     }
 

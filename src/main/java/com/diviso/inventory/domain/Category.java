@@ -7,8 +7,6 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
 
 /**
@@ -41,13 +39,6 @@ public class Category implements Serializable {
 
     @Column(name = "description")
     private String description;
-
-    @ManyToMany
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    @JoinTable(name = "category_products",
-               joinColumns = @JoinColumn(name="categories_id", referencedColumnName="id"),
-               inverseJoinColumns = @JoinColumn(name="products_id", referencedColumnName="id"))
-    private Set<Product> products = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -121,29 +112,6 @@ public class Category implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Set<Product> getProducts() {
-        return products;
-    }
-
-    public Category products(Set<Product> products) {
-        this.products = products;
-        return this;
-    }
-
-    public Category addProducts(Product product) {
-        this.products.add(product);
-        return this;
-    }
-
-    public Category removeProducts(Product product) {
-        this.products.remove(product);
-        return this;
-    }
-
-    public void setProducts(Set<Product> products) {
-        this.products = products;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

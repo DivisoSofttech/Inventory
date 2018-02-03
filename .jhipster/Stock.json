@@ -29,7 +29,7 @@
             "fieldType": "Long"
         },
         {
-            "fieldName": "dateOfStockAdded",
+            "fieldName": "dateOfStockUpdated",
             "fieldType": "LocalDate"
         },
         {

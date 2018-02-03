@@ -20,7 +20,7 @@ public class StockDTO implements Serializable {
 
     private Long deliveryNoteRef;
 
-    private LocalDate dateOfStockAdded;
+    private LocalDate dateOfStockUpdated;
 
     private Double storageCost;
 
@@ -52,12 +52,12 @@ public class StockDTO implements Serializable {
         this.deliveryNoteRef = deliveryNoteRef;
     }
 
-    public LocalDate getDateOfStockAdded() {
-        return dateOfStockAdded;
+    public LocalDate getDateOfStockUpdated() {
+        return dateOfStockUpdated;
     }
 
-    public void setDateOfStockAdded(LocalDate dateOfStockAdded) {
-        this.dateOfStockAdded = dateOfStockAdded;
+    public void setDateOfStockUpdated(LocalDate dateOfStockUpdated) {
+        this.dateOfStockUpdated = dateOfStockUpdated;
     }
 
     public Double getStorageCost() {
@@ -111,7 +111,7 @@ public class StockDTO implements Serializable {
             "id=" + getId() +
             ", reference='" + getReference() + "'" +
             ", deliveryNoteRef=" + getDeliveryNoteRef() +
-            ", dateOfStockAdded='" + getDateOfStockAdded() + "'" +
+            ", dateOfStockUpdated='" + getDateOfStockUpdated() + "'" +
             ", storageCost=" + getStorageCost() +
             "}";
     }

@@ -8,21 +8,20 @@ import org.mapstruct.*;
 /**
  * Mapper for the entity Product and its DTO ProductDTO.
  */
-@Mapper(componentModel = "spring", uses = {BarcodeMapper.class, UomMapper.class, LabelMapper.class, StatusMapper.class, TaxCategoryMapper.class, TaxMapper.class})
+@Mapper(componentModel = "spring", uses = {BarcodeMapper.class, UomMapper.class, CategoryMapper.class, LabelMapper.class, StatusMapper.class, TaxCategoryMapper.class})
 public interface ProductMapper extends EntityMapper<ProductDTO, Product> {
 
     @Mapping(source = "barcode.id", target = "barcodeId")
     @Mapping(source = "status.id", target = "statusId")
     @Mapping(source = "taxCategory.id", target = "taxCategoryId")
-    @Mapping(source = "tax.id", target = "taxId")
     ProductDTO toDto(Product product);
 
     @Mapping(source = "barcodeId", target = "barcode")
     @Mapping(target = "notes", ignore = true)
     @Mapping(target = "stockLines", ignore = true)
+    @Mapping(target = "taxes", ignore = true)
     @Mapping(source = "statusId", target = "status")
     @Mapping(source = "taxCategoryId", target = "taxCategory")
-    @Mapping(source = "taxId", target = "tax")
     Product toEntity(ProductDTO productDTO);
 
     default Product fromId(Long id) {

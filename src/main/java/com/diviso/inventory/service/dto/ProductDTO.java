@@ -41,19 +41,21 @@ public class ProductDTO implements Serializable {
 
     private LocalDate dateOfExpiry;
 
+    private Double maximumStockLevel;
+
     private Double reOrderLevel;
 
     private Long barcodeId;
 
     private Set<UomDTO> uoms = new HashSet<>();
 
+    private Set<CategoryDTO> categories = new HashSet<>();
+
     private Set<LabelDTO> labels = new HashSet<>();
 
     private Long statusId;
 
     private Long taxCategoryId;
-
-    private Long taxId;
 
     public Long getId() {
         return id;
@@ -151,6 +153,14 @@ public class ProductDTO implements Serializable {
         this.dateOfExpiry = dateOfExpiry;
     }
 
+    public Double getMaximumStockLevel() {
+        return maximumStockLevel;
+    }
+
+    public void setMaximumStockLevel(Double maximumStockLevel) {
+        this.maximumStockLevel = maximumStockLevel;
+    }
+
     public Double getReOrderLevel() {
         return reOrderLevel;
     }
@@ -175,6 +185,14 @@ public class ProductDTO implements Serializable {
         this.uoms = uoms;
     }
 
+    public Set<CategoryDTO> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(Set<CategoryDTO> categories) {
+        this.categories = categories;
+    }
+
     public Set<LabelDTO> getLabels() {
         return labels;
     }
@@ -197,14 +215,6 @@ public class ProductDTO implements Serializable {
 
     public void setTaxCategoryId(Long taxCategoryId) {
         this.taxCategoryId = taxCategoryId;
-    }
-
-    public Long getTaxId() {
-        return taxId;
-    }
-
-    public void setTaxId(Long taxId) {
-        this.taxId = taxId;
     }
 
     @Override
@@ -242,6 +252,7 @@ public class ProductDTO implements Serializable {
             ", isVisible='" + isIsVisible() + "'" +
             ", dateOfMfd='" + getDateOfMfd() + "'" +
             ", dateOfExpiry='" + getDateOfExpiry() + "'" +
+            ", maximumStockLevel=" + getMaximumStockLevel() +
             ", reOrderLevel=" + getReOrderLevel() +
             "}";
     }

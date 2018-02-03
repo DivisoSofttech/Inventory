@@ -64,6 +64,9 @@ public class Product implements Serializable {
     @Column(name = "date_of_expiry")
     private LocalDate dateOfExpiry;
 
+    @Column(name = "maximum_stock_level")
+    private Double maximumStockLevel;
+
     @Column(name = "re_order_level")
     private Double reOrderLevel;
 
@@ -81,12 +84,24 @@ public class Product implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<StockLine> stockLines = new HashSet<>();
 
+    @OneToMany(mappedBy = "product")
+    @JsonIgnore
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<Tax> taxes = new HashSet<>();
+
     @ManyToMany
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @JoinTable(name = "product_uoms",
                joinColumns = @JoinColumn(name="products_id", referencedColumnName="id"),
                inverseJoinColumns = @JoinColumn(name="uoms_id", referencedColumnName="id"))
     private Set<Uom> uoms = new HashSet<>();
+
+    @ManyToMany
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    @JoinTable(name = "product_categories",
+               joinColumns = @JoinColumn(name="products_id", referencedColumnName="id"),
+               inverseJoinColumns = @JoinColumn(name="categories_id", referencedColumnName="id"))
+    private Set<Category> categories = new HashSet<>();
 
     @ManyToMany
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -100,9 +115,6 @@ public class Product implements Serializable {
 
     @ManyToOne
     private TaxCategory taxCategory;
-
-    @ManyToOne
-    private Tax tax;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -256,6 +268,19 @@ public class Product implements Serializable {
         this.dateOfExpiry = dateOfExpiry;
     }
 
+    public Double getMaximumStockLevel() {
+        return maximumStockLevel;
+    }
+
+    public Product maximumStockLevel(Double maximumStockLevel) {
+        this.maximumStockLevel = maximumStockLevel;
+        return this;
+    }
+
+    public void setMaximumStockLevel(Double maximumStockLevel) {
+        this.maximumStockLevel = maximumStockLevel;
+    }
+
     public Double getReOrderLevel() {
         return reOrderLevel;
     }
@@ -332,6 +357,31 @@ public class Product implements Serializable {
         this.stockLines = stockLines;
     }
 
+    public Set<Tax> getTaxes() {
+        return taxes;
+    }
+
+    public Product taxes(Set<Tax> taxes) {
+        this.taxes = taxes;
+        return this;
+    }
+
+    public Product addTaxes(Tax tax) {
+        this.taxes.add(tax);
+        tax.setProduct(this);
+        return this;
+    }
+
+    public Product removeTaxes(Tax tax) {
+        this.taxes.remove(tax);
+        tax.setProduct(null);
+        return this;
+    }
+
+    public void setTaxes(Set<Tax> taxes) {
+        this.taxes = taxes;
+    }
+
     public Set<Uom> getUoms() {
         return uoms;
     }
@@ -353,6 +403,29 @@ public class Product implements Serializable {
 
     public void setUoms(Set<Uom> uoms) {
         this.uoms = uoms;
+    }
+
+    public Set<Category> getCategories() {
+        return categories;
+    }
+
+    public Product categories(Set<Category> categories) {
+        this.categories = categories;
+        return this;
+    }
+
+    public Product addCategories(Category category) {
+        this.categories.add(category);
+        return this;
+    }
+
+    public Product removeCategories(Category category) {
+        this.categories.remove(category);
+        return this;
+    }
+
+    public void setCategories(Set<Category> categories) {
+        this.categories = categories;
     }
 
     public Set<Label> getLabels() {
@@ -403,19 +476,6 @@ public class Product implements Serializable {
     public void setTaxCategory(TaxCategory taxCategory) {
         this.taxCategory = taxCategory;
     }
-
-    public Tax getTax() {
-        return tax;
-    }
-
-    public Product tax(Tax tax) {
-        this.tax = tax;
-        return this;
-    }
-
-    public void setTax(Tax tax) {
-        this.tax = tax;
-    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -453,6 +513,7 @@ public class Product implements Serializable {
             ", isVisible='" + isIsVisible() + "'" +
             ", dateOfMfd='" + getDateOfMfd() + "'" +
             ", dateOfExpiry='" + getDateOfExpiry() + "'" +
+            ", maximumStockLevel=" + getMaximumStockLevel() +
             ", reOrderLevel=" + getReOrderLevel() +
             "}";
     }

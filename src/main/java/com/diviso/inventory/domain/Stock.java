@@ -33,8 +33,8 @@ public class Stock implements Serializable {
     @Column(name = "delivery_note_ref")
     private Long deliveryNoteRef;
 
-    @Column(name = "date_of_stock_added")
-    private LocalDate dateOfStockAdded;
+    @Column(name = "date_of_stock_updated")
+    private LocalDate dateOfStockUpdated;
 
     @Column(name = "storage_cost")
     private Double storageCost;
@@ -84,17 +84,17 @@ public class Stock implements Serializable {
         this.deliveryNoteRef = deliveryNoteRef;
     }
 
-    public LocalDate getDateOfStockAdded() {
-        return dateOfStockAdded;
+    public LocalDate getDateOfStockUpdated() {
+        return dateOfStockUpdated;
     }
 
-    public Stock dateOfStockAdded(LocalDate dateOfStockAdded) {
-        this.dateOfStockAdded = dateOfStockAdded;
+    public Stock dateOfStockUpdated(LocalDate dateOfStockUpdated) {
+        this.dateOfStockUpdated = dateOfStockUpdated;
         return this;
     }
 
-    public void setDateOfStockAdded(LocalDate dateOfStockAdded) {
-        this.dateOfStockAdded = dateOfStockAdded;
+    public void setDateOfStockUpdated(LocalDate dateOfStockUpdated) {
+        this.dateOfStockUpdated = dateOfStockUpdated;
     }
 
     public Double getStorageCost() {
@@ -173,7 +173,7 @@ public class Stock implements Serializable {
             "id=" + getId() +
             ", reference='" + getReference() + "'" +
             ", deliveryNoteRef=" + getDeliveryNoteRef() +
-            ", dateOfStockAdded='" + getDateOfStockAdded() + "'" +
+            ", dateOfStockUpdated='" + getDateOfStockUpdated() + "'" +
             ", storageCost=" + getStorageCost() +
             "}";
     }

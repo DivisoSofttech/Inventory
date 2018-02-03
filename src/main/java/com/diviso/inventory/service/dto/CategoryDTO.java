@@ -3,8 +3,6 @@ package com.diviso.inventory.service.dto;
 
 import javax.validation.constraints.*;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
 import javax.persistence.Lob;
 
@@ -25,8 +23,6 @@ public class CategoryDTO implements Serializable {
     private Boolean isVisible;
 
     private String description;
-
-    private Set<ProductDTO> products = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -74,14 +70,6 @@ public class CategoryDTO implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Set<ProductDTO> getProducts() {
-        return products;
-    }
-
-    public void setProducts(Set<ProductDTO> products) {
-        this.products = products;
     }
 
     @Override

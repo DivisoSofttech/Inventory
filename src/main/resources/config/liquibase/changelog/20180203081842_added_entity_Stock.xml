@@ -30,7 +30,7 @@
                 <constraints nullable="true" />
             </column>
 
-            <column name="date_of_stock_added" type="date">
+            <column name="date_of_stock_updated" type="date">
                 <constraints nullable="true" />
             </column>
 

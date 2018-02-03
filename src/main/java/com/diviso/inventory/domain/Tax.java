@@ -1,6 +1,5 @@
 package com.diviso.inventory.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -8,8 +7,6 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
 
 import com.diviso.inventory.domain.enumeration.TaxTypes;
@@ -44,12 +41,10 @@ public class Tax implements Serializable {
     private TaxTypes taxType;
 
     @ManyToOne
-    private TaxCategory taxCategory;
+    private Product product;
 
-    @OneToMany(mappedBy = "tax")
-    @JsonIgnore
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Product> products = new HashSet<>();
+    @ManyToOne
+    private TaxCategory taxCategory;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -112,6 +107,19 @@ public class Tax implements Serializable {
         this.taxType = taxType;
     }
 
+    public Product getProduct() {
+        return product;
+    }
+
+    public Tax product(Product product) {
+        this.product = product;
+        return this;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
     public TaxCategory getTaxCategory() {
         return taxCategory;
     }
@@ -123,31 +131,6 @@ public class Tax implements Serializable {
 
     public void setTaxCategory(TaxCategory taxCategory) {
         this.taxCategory = taxCategory;
-    }
-
-    public Set<Product> getProducts() {
-        return products;
-    }
-
-    public Tax products(Set<Product> products) {
-        this.products = products;
-        return this;
-    }
-
-    public Tax addProduct(Product product) {
-        this.products.add(product);
-        product.setTax(this);
-        return this;
-    }
-
-    public Tax removeProduct(Product product) {
-        this.products.remove(product);
-        product.setTax(null);
-        return this;
-    }
-
-    public void setProducts(Set<Product> products) {
-        this.products = products;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

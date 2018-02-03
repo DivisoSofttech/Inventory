@@ -49,8 +49,8 @@ public class StockResourceIntTest {
     private static final Long DEFAULT_DELIVERY_NOTE_REF = 1L;
     private static final Long UPDATED_DELIVERY_NOTE_REF = 2L;
 
-    private static final LocalDate DEFAULT_DATE_OF_STOCK_ADDED = LocalDate.ofEpochDay(0L);
-    private static final LocalDate UPDATED_DATE_OF_STOCK_ADDED = LocalDate.now(ZoneId.systemDefault());
+    private static final LocalDate DEFAULT_DATE_OF_STOCK_UPDATED = LocalDate.ofEpochDay(0L);
+    private static final LocalDate UPDATED_DATE_OF_STOCK_UPDATED = LocalDate.now(ZoneId.systemDefault());
 
     private static final Double DEFAULT_STORAGE_COST = 1D;
     private static final Double UPDATED_STORAGE_COST = 2D;
@@ -101,7 +101,7 @@ public class StockResourceIntTest {
         Stock stock = new Stock()
             .reference(DEFAULT_REFERENCE)
             .deliveryNoteRef(DEFAULT_DELIVERY_NOTE_REF)
-            .dateOfStockAdded(DEFAULT_DATE_OF_STOCK_ADDED)
+            .dateOfStockUpdated(DEFAULT_DATE_OF_STOCK_UPDATED)
             .storageCost(DEFAULT_STORAGE_COST);
         return stock;
     }
@@ -129,7 +129,7 @@ public class StockResourceIntTest {
         Stock testStock = stockList.get(stockList.size() - 1);
         assertThat(testStock.getReference()).isEqualTo(DEFAULT_REFERENCE);
         assertThat(testStock.getDeliveryNoteRef()).isEqualTo(DEFAULT_DELIVERY_NOTE_REF);
-        assertThat(testStock.getDateOfStockAdded()).isEqualTo(DEFAULT_DATE_OF_STOCK_ADDED);
+        assertThat(testStock.getDateOfStockUpdated()).isEqualTo(DEFAULT_DATE_OF_STOCK_UPDATED);
         assertThat(testStock.getStorageCost()).isEqualTo(DEFAULT_STORAGE_COST);
     }
 
@@ -185,7 +185,7 @@ public class StockResourceIntTest {
             .andExpect(jsonPath("$.[*].id").value(hasItem(stock.getId().intValue())))
             .andExpect(jsonPath("$.[*].reference").value(hasItem(DEFAULT_REFERENCE.toString())))
             .andExpect(jsonPath("$.[*].deliveryNoteRef").value(hasItem(DEFAULT_DELIVERY_NOTE_REF.intValue())))
-            .andExpect(jsonPath("$.[*].dateOfStockAdded").value(hasItem(DEFAULT_DATE_OF_STOCK_ADDED.toString())))
+            .andExpect(jsonPath("$.[*].dateOfStockUpdated").value(hasItem(DEFAULT_DATE_OF_STOCK_UPDATED.toString())))
             .andExpect(jsonPath("$.[*].storageCost").value(hasItem(DEFAULT_STORAGE_COST.doubleValue())));
     }
 
@@ -202,7 +202,7 @@ public class StockResourceIntTest {
             .andExpect(jsonPath("$.id").value(stock.getId().intValue()))
             .andExpect(jsonPath("$.reference").value(DEFAULT_REFERENCE.toString()))
             .andExpect(jsonPath("$.deliveryNoteRef").value(DEFAULT_DELIVERY_NOTE_REF.intValue()))
-            .andExpect(jsonPath("$.dateOfStockAdded").value(DEFAULT_DATE_OF_STOCK_ADDED.toString()))
+            .andExpect(jsonPath("$.dateOfStockUpdated").value(DEFAULT_DATE_OF_STOCK_UPDATED.toString()))
             .andExpect(jsonPath("$.storageCost").value(DEFAULT_STORAGE_COST.doubleValue()));
     }
 
@@ -228,7 +228,7 @@ public class StockResourceIntTest {
         updatedStock
             .reference(UPDATED_REFERENCE)
             .deliveryNoteRef(UPDATED_DELIVERY_NOTE_REF)
-            .dateOfStockAdded(UPDATED_DATE_OF_STOCK_ADDED)
+            .dateOfStockUpdated(UPDATED_DATE_OF_STOCK_UPDATED)
             .storageCost(UPDATED_STORAGE_COST);
         StockDTO stockDTO = stockMapper.toDto(updatedStock);
 
@@ -243,7 +243,7 @@ public class StockResourceIntTest {
         Stock testStock = stockList.get(stockList.size() - 1);
         assertThat(testStock.getReference()).isEqualTo(UPDATED_REFERENCE);
         assertThat(testStock.getDeliveryNoteRef()).isEqualTo(UPDATED_DELIVERY_NOTE_REF);
-        assertThat(testStock.getDateOfStockAdded()).isEqualTo(UPDATED_DATE_OF_STOCK_ADDED);
+        assertThat(testStock.getDateOfStockUpdated()).isEqualTo(UPDATED_DATE_OF_STOCK_UPDATED);
         assertThat(testStock.getStorageCost()).isEqualTo(UPDATED_STORAGE_COST);
     }
 

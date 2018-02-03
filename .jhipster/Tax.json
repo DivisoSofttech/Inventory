@@ -2,16 +2,16 @@
     "fluentMethods": true,
     "relationships": [
         {
-            "relationshipName": "taxCategory",
-            "otherEntityName": "taxCategory",
+            "relationshipName": "product",
+            "otherEntityName": "product",
             "relationshipType": "many-to-one",
             "otherEntityField": "id"
         },
         {
-            "relationshipType": "one-to-many",
-            "relationshipName": "product",
-            "otherEntityName": "product",
-            "otherEntityRelationshipName": "tax"
+            "relationshipName": "taxCategory",
+            "otherEntityName": "taxCategory",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
         }
     ],
     "fields": [

@@ -22,10 +22,24 @@
             "otherEntityRelationshipName": "product"
         },
         {
+            "relationshipType": "one-to-many",
+            "relationshipName": "taxes",
+            "otherEntityName": "tax",
+            "otherEntityRelationshipName": "product"
+        },
+        {
             "relationshipType": "many-to-many",
             "otherEntityRelationshipName": "",
             "relationshipName": "uoms",
             "otherEntityName": "uom",
+            "otherEntityField": "id",
+            "ownerSide": true
+        },
+        {
+            "relationshipType": "many-to-many",
+            "otherEntityRelationshipName": "",
+            "relationshipName": "categories",
+            "otherEntityName": "category",
             "otherEntityField": "id",
             "ownerSide": true
         },
@@ -46,12 +60,6 @@
         {
             "relationshipName": "taxCategory",
             "otherEntityName": "taxCategory",
-            "relationshipType": "many-to-one",
-            "otherEntityField": "id"
-        },
-        {
-            "relationshipName": "tax",
-            "otherEntityName": "tax",
             "relationshipType": "many-to-one",
             "otherEntityField": "id"
         }
@@ -106,6 +114,10 @@
         {
             "fieldName": "dateOfExpiry",
             "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "maximumStockLevel",
+            "fieldType": "Double"
         },
         {
             "fieldName": "reOrderLevel",
