@@ -21,6 +21,7 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -390,6 +391,12 @@ public class StockLineResource {
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
     
+    @PutMapping("/stock-lines/updateStockLevel")
+    public ResponseEntity<List<StockLineDTO>>  updateStockLevel(@RequestBody ArrayList<StockLineDTO> stockLines ){
+    	List<StockLineDTO> list=stockLineService.updateStockLevel(stockLines);
+    	return new ResponseEntity<>(list,  HttpStatus.OK);
+                
+    }
     
     
     

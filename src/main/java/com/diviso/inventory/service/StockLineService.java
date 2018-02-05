@@ -3,6 +3,8 @@ package com.diviso.inventory.service;
 import com.diviso.inventory.service.dto.StockLineDTO;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -188,4 +190,6 @@ public interface StockLineService {
      * @return the list of entities
      */
 	Page<StockLineDTO> findBySupplierRef(Long supplierRef, Pageable pageable);
+
+	List<StockLineDTO> updateStockLevel(ArrayList<StockLineDTO> stockLines);
 }
