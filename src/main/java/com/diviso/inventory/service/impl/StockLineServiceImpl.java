@@ -282,4 +282,60 @@ public class StockLineServiceImpl implements StockLineService {
         return stockLineRepository.findByProduct_Categories_NameIgnoreCaseAndProduct_VisibleTrue(name,pageable)
             .map(stockLineMapper::toDto);
 	}
+
+	/**
+     * Get the "reference" stockLine.
+     *
+     * @param reference the reference of the entity
+     * @return the entity
+     */
+	@Override
+	@Transactional(readOnly=true)
+	public StockLineDTO findByReference(String reference) {
+		 log.debug("Request to get StockLine : {}", reference);
+	        StockLine stockLine = stockLineRepository.findByReference(reference);
+	        return stockLineMapper.toDto(stockLine);
+	}
+
+	/**
+     * Get all the stockLines by infrastructureId.
+     *
+     * @param pageable the pagination information and the infrastructureId of the stockLine
+     * @return the list of entities
+     */
+    @Override
+    @Transactional(readOnly = true)
+	public Page<StockLineDTO> findByInfrastructureId(Long infrastructureId, Pageable pageable) {
+    	 log.debug("Request to get all StockLines by infrastructureId ",infrastructureId);
+         return stockLineRepository.findByInfrastructureId(infrastructureId,pageable)
+             .map(stockLineMapper::toDto);
+	}
+
+    /**
+     * Get all the stockLines by locationId.
+     *
+     * @param pageable the pagination information and the locationId of the stockLine
+     * @return the list of entities
+     */
+	@Override
+	 @Transactional(readOnly = true)
+	public Page<StockLineDTO> findByLocationId(Long locationId, Pageable pageable) {
+		log.debug("Request to get all StockLines by locationId ",locationId);
+        return stockLineRepository.findByLocationId(locationId,pageable)
+            .map(stockLineMapper::toDto);
+	}
+
+	/**
+     * Get all the stockLines by supplierRef.
+     *
+     * @param pageable the pagination information and the supplierRef of the stockLine
+     * @return the list of entities
+     */
+	@Override
+	 @Transactional(readOnly = true)
+	public Page<StockLineDTO> findBySupplierRef(Long supplierRef, Pageable pageable) {
+		log.debug("Request to get all StockLines by supplierRef ",supplierRef);
+        return stockLineRepository.findBySupplierRef(supplierRef,pageable)
+            .map(stockLineMapper::toDto);
+	}
 }

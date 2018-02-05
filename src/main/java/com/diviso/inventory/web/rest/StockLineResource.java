@@ -5,6 +5,7 @@ import com.diviso.inventory.service.StockLineService;
 import com.diviso.inventory.web.rest.errors.BadRequestAlertException;
 import com.diviso.inventory.web.rest.util.HeaderUtil;
 import com.diviso.inventory.web.rest.util.PaginationUtil;
+
 import com.diviso.inventory.service.dto.StockLineDTO;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
@@ -123,6 +124,20 @@ public class StockLineResource {
         log.debug("REST request to delete StockLine : {}", id);
         stockLineService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
+    }
+    
+    /**
+     * GET  /stock-lines/findByReference/:reference : get the "reference" stock.
+     *
+     * @param reference the reference of the stockLineDTO to retrieve
+     * @return the ResponseEntity with status 200 (OK) StockLine_Product_ with body the stockDTO, or with status 404 (Not Found)
+     */
+    @GetMapping("/stock-lines/findByReference/{reference}")
+    @Timed
+    public ResponseEntity<StockLineDTO> getStockLineByReference(@PathVariable String reference) {
+        log.debug("REST request to get StockLine : {}", reference);
+        StockLineDTO stockLineDTO = stockLineService.findByReference(reference);
+        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(stockLineDTO));
     }
     
     /**
@@ -329,6 +344,55 @@ public class StockLineResource {
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/stock-lines/findByProductStatus");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
+    
+    /**
+     * GET  /stock-lines/findByInfrastructureId/:infrastructureId get all the stockLines by infrastructureId.
+     *
+     * @param pageable the pagination information and the infrastructureId of the stock-line
+     * @return the ResponseEntity with status 200 (OK) and the list of stockLines in body
+     */
+    @GetMapping("/stock-lines/findByInfrastructureId/{infrastructureId}")
+    @Timed
+    public ResponseEntity<List<StockLineDTO>> getAllStockLinesInfrastructureId(@PathVariable Long infrastructureId,Pageable pageable) {
+        log.debug("REST request to get a page of StockLines by infrastructureId",infrastructureId);
+        Page<StockLineDTO> page = stockLineService.findByInfrastructureId(infrastructureId,pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/stock-lines/findByInfrastructureId");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+    
+    /**
+     * GET  /stock-lines/findByLocationId/:locationId get all the stockLines by locationId.
+     *
+     * @param pageable the pagination information and the locationId of the stock-line
+     * @return the ResponseEntity with status 200 (OK) and the list of stockLines in body
+     */
+    @GetMapping("/stock-lines/findByLocationId/{locationId}")
+    @Timed
+    public ResponseEntity<List<StockLineDTO>> getAllStockLinesLocationId(@PathVariable Long locationId,Pageable pageable) {
+        log.debug("REST request to get a page of StockLines by locationId",locationId);
+        Page<StockLineDTO> page = stockLineService.findByLocationId(locationId,pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/stock-lines/findByLocationId");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+    
+    /**
+     * GET  /stock-lines/findBySupplierRef/:supplierRef get all the stockLines by supplierRef.
+     *
+     * @param pageable the pagination information and the supplierRef of the stock-line
+     * @return the ResponseEntity with status 200 (OK) and the list of stockLines in body
+     */
+    @GetMapping("/stock-lines/findBySupplierRef/{supplierRef}")
+    @Timed
+    public ResponseEntity<List<StockLineDTO>> getAllStockLinesSupplierRef(@PathVariable Long supplierRef,Pageable pageable) {
+        log.debug("REST request to get a page of StockLines by supplierRef",supplierRef);
+        Page<StockLineDTO> page = stockLineService.findBySupplierRef(supplierRef,pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/stock-lines/findBySupplierRef");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+    
+    
+    
+    
     
 
 }

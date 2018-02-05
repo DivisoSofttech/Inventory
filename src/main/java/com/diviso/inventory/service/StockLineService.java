@@ -156,4 +156,36 @@ public interface StockLineService {
      * @return the list of entities
      */
 	Page<StockLineDTO> findByProduct_Categories_NameAndProduct_VisibleTrue(String name, Pageable pageable);
+
+	/**
+     * Get the "reference" stockLine.
+     *
+     * @param reference the reference of the entity
+     * @return the entity
+     */
+	StockLineDTO findByReference(String reference);
+
+	/**
+     * Get all the stockLines by infrastructureId.
+     *
+     * @param pageable the pagination information and the infrastructureId of the stockLine
+     * @return the list of entities
+     */
+	Page<StockLineDTO> findByInfrastructureId(Long infrastructureId, Pageable pageable);
+
+	/**
+     * Get all the stockLines by locationId.
+     *
+     * @param pageable the pagination information and the locationId of the stockLine
+     * @return the list of entities
+     */
+	Page<StockLineDTO> findByLocationId(Long locationId, Pageable pageable);
+
+	/**
+     * Get all the stockLines by supplierRef.
+     *
+     * @param pageable the pagination information and the supplierRef of the stockLine
+     * @return the list of entities
+     */
+	Page<StockLineDTO> findBySupplierRef(Long supplierRef, Pageable pageable);
 }
