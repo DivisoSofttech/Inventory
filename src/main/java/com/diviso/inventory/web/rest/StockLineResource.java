@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
-
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -124,4 +124,211 @@ public class StockLineResource {
         stockLineService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
+    
+    /**
+     * GET  /stock-lines/findByProductName/:name  get all the stockLines by product name.
+     *
+     * @param pageable the pagination information Product_ the name of the product
+     * @return the ResponseEntity with status 200 (OK) Product_ the list of stockLines in body
+     */
+    @GetMapping("/stock-lines/findByProductName/{name}")
+    @Timed
+    public ResponseEntity<List<StockLineDTO>> getAllStocksByProdcutName(@PathVariable String name,Pageable pageable) {
+        log.debug("REST request to get a page of stockLines by produt name ",name);
+        Page<StockLineDTO> page = stockLineService.findByProduct_NameAndProduct_VisibleTrue(name,pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/stock-lines/findByProductName");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+    
+    /**
+     * GET  /stock-lines/findByProductNameContaining/:name get all the stockLines by Product name Containing.
+     *
+     * @param pageable the pagination information Product_ the name of the product
+     * @return the ResponseEntity with status 200 (OK) Product_ the list of stockLines in body
+     */
+    @GetMapping("/stock-lines/findByProductNameContaining/{name}")
+    @Timed
+    public ResponseEntity<List<StockLineDTO>> getAllStocksByProductNameContaining(@PathVariable String name,Pageable pageable) {
+        log.debug("REST request to get a page of stockLines by Product name Containing ",name);
+        Page<StockLineDTO> page = stockLineService.findByProduct_NameContainingAndProduct_VisibleTrue(name,pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/stock-lines/findByProductNameContaining");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+    
+    /**
+     * GET  /stock-lines/findByProductVisibleFalse : get all the stockLines by product visibility is false.
+     *
+     * @param pageable the pagination information 
+     * @return the ResponseEntity with status 200 (OK) Product_ the list of stockLines in body
+     */
+    @GetMapping("/stock-lines/findByProductVisibleFalse")
+    @Timed
+    public ResponseEntity<List<StockLineDTO>> getAllStocksByVisibleFalse(Pageable pageable) {
+        log.debug("REST request to get a page of stockLines by product visibility false ");
+        Page<StockLineDTO> page = stockLineService.findByProduct_VisibleFalse(pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/stock-lines/findByProductVisibleFalse");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+    
+    /**
+     * GET  /stock-lines/findByProductVisibleTrue : get all the stockLines by product visibility is True.
+     *
+     * @param pageable the pagination information 
+     * @return the ResponseEntity with status 200 (OK) Product_ the list of stockLines in body
+     */
+    @GetMapping("/stock-lines/findByProductVisibleTrue")
+    @Timed
+    public ResponseEntity<List<StockLineDTO>> getAllStocksByVisibleTrue(Pageable pageable) {
+        log.debug("REST request to get a page of stockLines by product visibility True ");
+        Page<StockLineDTO> page = stockLineService.findByProduct_VisibleTrue(pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/stock-lines/findByProductVisibleTrue");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+    
+    /**
+     * GET  /stock-lines/findByProductReference/:reference : get the "reference" product.
+     *
+     * @param reference the reference of the productDTO to retrieve
+     * @return the ResponseEntity with status 200 (OK) Product_ with body the productDTO, or with status 404 (Not Found)
+     */
+    @GetMapping("/stock-lines/findByProductReference/{reference}")
+    @Timed
+    public ResponseEntity<StockLineDTO> getStockByProductReference(@PathVariable String reference) {
+        log.debug("REST request to get Product by product reference : {}", reference);
+        StockLineDTO productDTO = stockLineService.findByProduct_ReferenceAndProduct_VisibleTrue(reference);
+        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(productDTO));
+    }
+    
+    /**
+     * GET  /stock-lines/findByProductSku/:sku : get the "sku" product.
+     *
+     * @param sku the sku of the productDTO to retrieve
+     * @return the ResponseEntity with status 200 (OK) Product_ with body the productDTO, or with status 404 (Not Found)
+     */
+    @GetMapping("/stock-lines/findByProductSku/{sku}")
+    @Timed
+    public ResponseEntity<StockLineDTO> getStockByProductSku(@PathVariable String sku) {
+        log.debug("REST request to get Product by sku : {}", sku);
+        StockLineDTO productDTO = stockLineService.findByProduct_SkuAndProduct_VisibleTrue(sku);
+        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(productDTO));
+    }
+    
+    /**
+     * GET  /stock-lines/findByProductSearchkey/:searchkey : get the "searchkey" product.
+     *
+     * @param searchkey the searchkey of the productDTO to retrieve
+     * @return the ResponseEntity with status 200 (OK) Product_ with body the productDTO, or with status 404 (Not Found)
+     */
+    @GetMapping("/stock-lines/findByProductSearchkey/{searchkey}")
+    @Timed
+    public ResponseEntity<StockLineDTO> getStockByProductSearchkey(@PathVariable String searchkey) {
+        log.debug("REST request to get Product by searchkey : {}",searchkey);
+        StockLineDTO productDTO = stockLineService.findByProduct_SearchkeyAndProduct_VisibleTrue(searchkey);
+        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(productDTO));
+    }
+    
+    /**
+     * GET  /stock-lines/findByProductMpn/:mpn : get the "mpn" product.
+     *
+     * @param mpn the mpn of the productDTO to retrieve
+     * @return the ResponseEntity with status 200 (OK) Product_ with body the productDTO, or with status 404 (Not Found)
+     */
+    @GetMapping("/stock-lines/findByProductMpn/{mpn}")
+    @Timed
+    public ResponseEntity<StockLineDTO> getStockByProductMpn(@PathVariable String mpn) {
+        log.debug("REST request to get Product by mpn : {}",mpn);
+        StockLineDTO productDTO = stockLineService.findByProduct_MpnAndProduct_VisibleTrue(mpn);
+        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(productDTO));
+    }
+    
+    /**
+     * GET  /stock-lines/findByProductBarcode/:barcode : get the "barcode" product.
+     *
+     * @param barcode the barcode of the productDTO to retrieve
+     * @return the ResponseEntity with status 200 (OK) Product_ with body the productDTO, or with status 404 (Not Found)
+     */
+    @GetMapping("/stock-lines/findByProductBarcode/{barcode}")
+    @Timed
+    public ResponseEntity<StockLineDTO> getStockByProductBarcode(@PathVariable String barcode) {
+        log.debug("REST request to get Product by barcode : {}",barcode);
+        StockLineDTO productDTO = stockLineService.findByProduct_Barcode_CodeAndProduct_VisibleTrue(barcode);
+        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(productDTO));
+    }
+    
+    /**
+     * GET  /stock-lines/findByProductCategory/:name  get all the stockLines by category name.
+     *
+     * @param pageable the pagination information Product_ the name of the category
+     * @return the ResponseEntity with status 200 (OK) Product_ the list of stockLines in body
+     */
+    @GetMapping("/stock-lines/findByProductCategory/{name}")
+    @Timed
+    public ResponseEntity<List<StockLineDTO>> getAllStocksByProductCategory(@PathVariable String name,Pageable pageable) {
+        log.debug("REST request to get a page of stockLines by category name ",name);
+        Page<StockLineDTO> page = stockLineService.findByProduct_Categories_NameAndProduct_VisibleTrue(name,pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/stock-lines/findByProductCategory");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+    
+    /**
+     * GET  /stock-lines/findByProductDateOfMfd/:dateOfMfd  get all the stockLines by dateOfMfd.
+     *
+     * @param pageable the pagination information Product_ the dateOfMfd of the product
+     * @return the ResponseEntity with status 200 (OK) Product_ the list of stockLines in body
+     */
+    @GetMapping("/stock-lines/findByProductDateOfMfd/{dateOfMfd}")
+    @Timed
+    public ResponseEntity<List<StockLineDTO>> getAllStocksByProductDateOfMfd(@PathVariable LocalDate dateOfMfd,Pageable pageable) {
+        log.debug("REST request to get a page of stockLines by dateOfMfd ",dateOfMfd);
+        Page<StockLineDTO> page = stockLineService.findByProduct_DateOfMfdAndProduct_VisibleTrue(dateOfMfd,pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/stock-lines/findByProductDateOfMfd");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+    
+    /**
+     * GET  /stock-lines/findByProductDateOfExpiry/:dateOfExpiry  get all the stockLines by dateOfExpiry.
+     *
+     * @param pageable the pagination information Product_ the dateOfExpiry of the product
+     * @return the ResponseEntity with status 200 (OK) Product_ the list of stockLines in body
+     */
+    @GetMapping("/stock-lines/findByProductDateOfExpiry/{dateOfExpiry}")
+    @Timed
+    public ResponseEntity<List<StockLineDTO>> getAllStocksByProductDateOfExpiry(@PathVariable LocalDate dateOfExpiry,Pageable pageable) {
+        log.debug("REST request to get a page of stockLines by dateOfExpiry ",dateOfExpiry);
+        Page<StockLineDTO> page = stockLineService.findByProduct_DateOfExpiryAndProduct_VisibleTrue(dateOfExpiry,pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/stock-lines/findByProductDateOfExpiry");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+    
+    /**
+     * GET  /stock-lines/findByProductDateOfExpiryBetween/:from/:/to  get all the stockLines by dateOfExpiryBetween.
+     *
+     * @param pageable the pagination information Product_ the dateOfExpiry(from&to) of the product
+     * @return the ResponseEntity with status 200 (OK) Product_ the list of stockLines in body
+     */
+    @GetMapping("/stock-lines/findByProductDateOfExpiryBetween/{from}/{to}")
+    @Timed
+    public ResponseEntity<List<StockLineDTO>> getAllStocksByProductDateOfExpiryBetween(@PathVariable LocalDate from,@PathVariable LocalDate to,Pageable pageable) {
+        log.debug("REST request to get a page of stockLines by dateOfExpiryBetween from "+from+" to ",to);
+        Page<StockLineDTO> page = stockLineService.findByProduct_DateOfExpiryBetweenAndProduct_VisibleTrue(from,to,pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/stock-lines/findByProductDateOfExpiryBetween");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+    
+    /**
+     * GET  /stock-lines/findByProductStatus/:status  get all the stockLines by status.
+     *
+     * @param pageable the pagination information Product_ the status of the product
+     * @return the ResponseEntity with status 200 (OK) Product_ the list of stockLines in body
+     */
+    @GetMapping("/stock-lines/findByProductStatus/{status}")
+    @Timed
+    public ResponseEntity<List<StockLineDTO>> getAllStocksByProductStatus(@PathVariable String status,Pageable pageable) {
+        log.debug("REST request to get a page of stockLines by status ",status);
+        Page<StockLineDTO> page = stockLineService.findByProduct_Status_NameAndProduct_VisibleTrue(status,pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/stock-lines/findByProductStatus");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+    
+
 }

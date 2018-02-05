@@ -5,6 +5,9 @@ import com.diviso.inventory.domain.Stock;
 import com.diviso.inventory.repository.StockRepository;
 import com.diviso.inventory.service.dto.StockDTO;
 import com.diviso.inventory.service.mapper.StockMapper;
+
+import java.time.LocalDate;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -83,4 +86,74 @@ public class StockServiceImpl implements StockService {
         log.debug("Request to delete Stock : {}", id);
         stockRepository.delete(id);
     }
+
+    /**
+     * Get one stock by reference.
+     *
+     * @param reference the reference of the entity
+     * @return the entity
+     */
+    @Override
+    @Transactional(readOnly = true)
+	public StockDTO findByReference(String reference) {
+    	log.debug("Request to get Stock by reference : {}", reference);
+        Stock stock = stockRepository.findByReference(reference);
+        return stockMapper.toDto(stock);
+	}
+
+    /**
+     * Get one stock by deliveryNoteRef.
+     *
+     * @param deliveryNoteRef the deliveryNoteRef of the entity
+     * @return the entity
+     */
+    @Override
+    @Transactional(readOnly = true)
+	public StockDTO findByDeliveryNoteRef(String deliveryNoteRef) {
+    	log.debug("Request to get Stock by deliveryNoteRef : {}", deliveryNoteRef);
+        Stock stock = stockRepository.findByDeliveryNoteRef(deliveryNoteRef);
+        return stockMapper.toDto(stock);
+	}
+
+    /**
+     * Get all the stocks by dateOfStockUpdated.
+     *
+     * @param pageable the pagination information and the dateOfStockUpdated of the stock
+     * @return the list of entities
+     */
+    @Override
+    @Transactional(readOnly = true)
+	public Page<StockDTO> findByDateOfStockUpdated(LocalDate dateOfStockUpdated, Pageable pageable) {
+    	log.debug("Request to get all Stocks by  dateOfStockUpdated ",dateOfStockUpdated);
+        return stockRepository.findByDateOfStockUpdated(dateOfStockUpdated,pageable)
+            .map(stockMapper::toDto);
+	}
+
+    /**
+     * Get all the stocks by dateOfStockUpdatedBetween.
+     *
+     * @param pageable the pagination information and the dateOfStockUpdated(from&to) of the stock
+     * @return the list of entities
+     */
+    @Override
+    @Transactional(readOnly = true)
+	public Page<StockDTO> findByDateOfStockUpdatedBetween(LocalDate from, LocalDate to, Pageable pageable) {
+    	log.debug("Request to get all Stocks by  dateOfStockUpdated between from "+from+" to "+to);
+        return stockRepository.findByDateOfStockUpdatedBetween(from,to,pageable)
+            .map(stockMapper::toDto);
+	}
+
+    /**
+     * Get all the stocks by status.
+     *
+     * @param pageable the pagination information and the status of the stock
+     * @return the list of entities
+     */
+    @Override
+    @Transactional(readOnly = true)
+	public Page<StockDTO> findByStatus_Name(LocalDate status, Pageable pageable) {
+    	log.debug("Request to get all Stocks by  status ",status);
+        return stockRepository.findByStatus_Name(status,pageable)
+            .map(stockMapper::toDto);
+	}
 }

@@ -1,10 +1,15 @@
 package com.diviso.inventory.repository;
 
 import com.diviso.inventory.domain.Stock;
-import org.springframework.stereotype.Repository;
+import com.diviso.inventory.service.dto.StockDTO;
 
+import org.springframework.stereotype.Repository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.data.repository.query.Param;
+
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -18,5 +23,15 @@ public interface StockRepository extends JpaRepository<Stock, Long> {
 
     @Query("select stock from Stock stock left join fetch stock.stockLines where stock.id =:id")
     Stock findOneWithEagerRelationships(@Param("id") Long id);
+
+	Stock findByReference(String reference);
+
+	Stock findByDeliveryNoteRef(String deliveryNoteRef);
+
+	Page<Stock> findByDateOfStockUpdated(LocalDate dateOfStockUpdated, Pageable pageable);
+
+	Page<Stock> findByDateOfStockUpdatedBetween(LocalDate from, LocalDate to, Pageable pageable);
+
+	Page<Stock> findByStatus_Name(LocalDate status, Pageable pageable);
 
 }
