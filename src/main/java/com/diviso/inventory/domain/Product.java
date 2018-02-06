@@ -91,24 +91,13 @@ public class Product implements Serializable {
 
     @ManyToMany
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    @JoinTable(name = "product_uoms",
-               joinColumns = @JoinColumn(name="products_id", referencedColumnName="id"),
-               inverseJoinColumns = @JoinColumn(name="uoms_id", referencedColumnName="id"))
-    private Set<Uom> uoms = new HashSet<>();
-
-    @ManyToMany
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    @JoinTable(name = "product_categories",
-               joinColumns = @JoinColumn(name="products_id", referencedColumnName="id"),
-               inverseJoinColumns = @JoinColumn(name="categories_id", referencedColumnName="id"))
-    private Set<Category> categories = new HashSet<>();
-
-    @ManyToMany
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @JoinTable(name = "product_labels",
                joinColumns = @JoinColumn(name="products_id", referencedColumnName="id"),
                inverseJoinColumns = @JoinColumn(name="labels_id", referencedColumnName="id"))
     private Set<Label> labels = new HashSet<>();
+
+    @ManyToOne
+    private Category category;
 
     @ManyToOne
     private Status status;
@@ -382,52 +371,6 @@ public class Product implements Serializable {
         this.taxes = taxes;
     }
 
-    public Set<Uom> getUoms() {
-        return uoms;
-    }
-
-    public Product uoms(Set<Uom> uoms) {
-        this.uoms = uoms;
-        return this;
-    }
-
-    public Product addUoms(Uom uom) {
-        this.uoms.add(uom);
-        return this;
-    }
-
-    public Product removeUoms(Uom uom) {
-        this.uoms.remove(uom);
-        return this;
-    }
-
-    public void setUoms(Set<Uom> uoms) {
-        this.uoms = uoms;
-    }
-
-    public Set<Category> getCategories() {
-        return categories;
-    }
-
-    public Product categories(Set<Category> categories) {
-        this.categories = categories;
-        return this;
-    }
-
-    public Product addCategories(Category category) {
-        this.categories.add(category);
-        return this;
-    }
-
-    public Product removeCategories(Category category) {
-        this.categories.remove(category);
-        return this;
-    }
-
-    public void setCategories(Set<Category> categories) {
-        this.categories = categories;
-    }
-
     public Set<Label> getLabels() {
         return labels;
     }
@@ -449,6 +392,19 @@ public class Product implements Serializable {
 
     public void setLabels(Set<Label> labels) {
         this.labels = labels;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public Product category(Category category) {
+        this.category = category;
+        return this;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     public Status getStatus() {

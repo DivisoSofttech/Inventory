@@ -46,7 +46,7 @@ public interface StockLineRepository extends JpaRepository<StockLine, Long> {
 
 	Page<StockLine> findByProduct_Status_NameIgnoreCaseAndProduct_VisibleTrue(String status, Pageable pageable);
 
-	Page<StockLine> findByProduct_Categories_NameIgnoreCaseAndProduct_VisibleTrue(String name, Pageable pageable);
+	Page<StockLine> findByProduct_Category_NameIgnoreCaseAndProduct_VisibleTrue(String name, Pageable pageable);
 
 	StockLine findByReference(String reference);
 

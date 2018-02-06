@@ -12,6 +12,8 @@ import org.mapstruct.*;
 public interface UomMapper extends EntityMapper<UomDTO, Uom> {
 
 
+    @Mapping(target = "stockLines", ignore = true)
+    Uom toEntity(UomDTO uomDTO);
 
     default Uom fromId(Long id) {
         if (id == null) {

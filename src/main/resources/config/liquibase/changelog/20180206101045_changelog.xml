@@ -1,0 +1,268 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <changeSet author="divisolxi (generated)" id="1517911859030-1">
+        <createTable tableName="barcode">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="barcodePK"/>
+            </column>
+            <column name="code" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="VARCHAR(255)"/>
+            <column name="jhi_type" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="divisolxi (generated)" id="1517911859030-2">
+        <createTable tableName="category">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="categoryPK"/>
+            </column>
+            <column name="description" type="VARCHAR(255)"/>
+            <column name="image" type="LONGBLOB"/>
+            <column name="image_content_type" type="VARCHAR(255)"/>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="visible" type="BIT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="divisolxi (generated)" id="1517911859030-3">
+        <createTable tableName="jhi_persistent_audit_event">
+            <column autoIncrement="true" name="event_id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="jhi_persistent_audit_eventPK"/>
+            </column>
+            <column name="event_date" type="TINYBLOB"/>
+            <column name="event_type" type="VARCHAR(255)"/>
+            <column name="principal" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="divisolxi (generated)" id="1517911859030-4">
+        <createTable tableName="jhi_persistent_audit_evt_data">
+            <column name="event_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="value" type="VARCHAR(255)"/>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="divisolxi (generated)" id="1517911859030-5">
+        <createTable tableName="label">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="labelPK"/>
+            </column>
+            <column name="description" type="VARCHAR(255)"/>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="divisolxi (generated)" id="1517911859030-6">
+        <createTable tableName="note">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="notePK"/>
+            </column>
+            <column name="date_of_creation" type="TINYBLOB"/>
+            <column name="matter" type="VARCHAR(255)"/>
+            <column name="product_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="divisolxi (generated)" id="1517911859030-7">
+        <createTable tableName="product">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="productPK"/>
+            </column>
+            <column name="date_of_expiry" type="TINYBLOB"/>
+            <column name="date_of_mfd" type="TINYBLOB"/>
+            <column name="description" type="VARCHAR(255)"/>
+            <column name="image" type="LONGBLOB"/>
+            <column name="image_content_type" type="VARCHAR(255)"/>
+            <column name="maximum_stock_level" type="DOUBLE"/>
+            <column name="mpn" type="VARCHAR(255)"/>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="re_order_level" type="DOUBLE"/>
+            <column name="reference" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="searchkey" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sku" type="VARCHAR(255)"/>
+            <column name="visible" type="BIT"/>
+            <column name="barcode_id" type="BIGINT"/>
+            <column name="category_id" type="BIGINT"/>
+            <column name="status_id" type="BIGINT"/>
+            <column name="tax_category_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="divisolxi (generated)" id="1517911859030-8">
+        <createTable tableName="product_labels">
+            <column name="products_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="labels_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="divisolxi (generated)" id="1517911859030-9">
+        <createTable tableName="status">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="statusPK"/>
+            </column>
+            <column name="description" type="VARCHAR(255)"/>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="reference" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="divisolxi (generated)" id="1517911859030-10">
+        <createTable tableName="stock">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="stockPK"/>
+            </column>
+            <column name="date_of_stock_updated" type="TINYBLOB"/>
+            <column name="delivery_note_ref" type="BIGINT"/>
+            <column name="reference" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="storage_cost" type="DOUBLE"/>
+            <column name="status_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="divisolxi (generated)" id="1517911859030-11">
+        <createTable tableName="stock_line">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="stock_linePK"/>
+            </column>
+            <column name="buy_price" type="DOUBLE"/>
+            <column name="gross_profit" type="DOUBLE"/>
+            <column name="infrastructure_id" type="BIGINT"/>
+            <column name="location_id" type="VARCHAR(255)"/>
+            <column name="margin" type="DOUBLE"/>
+            <column name="reference" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sell_price_exclusive" type="DOUBLE"/>
+            <column name="sell_price_inclusive" type="DOUBLE"/>
+            <column name="supplier_ref" type="BIGINT"/>
+            <column name="units" type="DOUBLE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="product_id" type="BIGINT"/>
+            <column name="uom_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="divisolxi (generated)" id="1517911859030-12">
+        <createTable tableName="stock_stock_lines">
+            <column name="stocks_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="stock_lines_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="divisolxi (generated)" id="1517911859030-13">
+        <createTable tableName="tax">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="taxPK"/>
+            </column>
+            <column name="description" type="VARCHAR(255)"/>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="rate" type="DOUBLE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="tax_type" type="VARCHAR(255)"/>
+            <column name="product_id" type="BIGINT"/>
+            <column name="tax_category_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="divisolxi (generated)" id="1517911859030-14">
+        <createTable tableName="tax_category">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="tax_categoryPK"/>
+            </column>
+            <column name="description" type="VARCHAR(255)"/>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="divisolxi (generated)" id="1517911859030-15">
+        <createTable tableName="uom">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="uomPK"/>
+            </column>
+            <column name="description" type="VARCHAR(255)"/>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="divisolxi (generated)" id="1517911859030-16">
+        <addPrimaryKey columnNames="event_id, name" tableName="jhi_persistent_audit_evt_data"/>
+    </changeSet>
+    <changeSet author="divisolxi (generated)" id="1517911859030-17">
+        <addPrimaryKey columnNames="products_id, labels_id" tableName="product_labels"/>
+    </changeSet>
+    <changeSet author="divisolxi (generated)" id="1517911859030-18">
+        <addPrimaryKey columnNames="stocks_id, stock_lines_id" tableName="stock_stock_lines"/>
+    </changeSet>
+    <changeSet author="divisolxi (generated)" id="1517911859030-19">
+        <addUniqueConstraint columnNames="barcode_id" constraintName="UC_PRODUCTBARCODE_ID_COL" tableName="product"/>
+    </changeSet>
+    <changeSet author="divisolxi (generated)" id="1517911859030-20">
+        <addForeignKeyConstraint baseColumnNames="products_id" baseTableName="product_labels" constraintName="FK1gravi0qijb2dsmphwbrqrd1u" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="product"/>
+    </changeSet>
+    <changeSet author="divisolxi (generated)" id="1517911859030-21">
+        <addForeignKeyConstraint baseColumnNames="category_id" baseTableName="product" constraintName="FK1mtsbur82frn64de7balymq9s" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="category"/>
+    </changeSet>
+    <changeSet author="divisolxi (generated)" id="1517911859030-22">
+        <addForeignKeyConstraint baseColumnNames="event_id" baseTableName="jhi_persistent_audit_evt_data" constraintName="FK2ehnyx2si4tjd2nt4q7y40v8m" deferrable="false" initiallyDeferred="false" referencedColumnNames="event_id" referencedTableName="jhi_persistent_audit_event"/>
+    </changeSet>
+    <changeSet author="divisolxi (generated)" id="1517911859030-23">
+        <addForeignKeyConstraint baseColumnNames="status_id" baseTableName="stock" constraintName="FK3cqvoj87nxtyypkdxj01b38in" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="status"/>
+    </changeSet>
+    <changeSet author="divisolxi (generated)" id="1517911859030-24">
+        <addForeignKeyConstraint baseColumnNames="status_id" baseTableName="product" constraintName="FK8556hocjcb04st51nt8yknfbg" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="status"/>
+    </changeSet>
+    <changeSet author="divisolxi (generated)" id="1517911859030-25">
+        <addForeignKeyConstraint baseColumnNames="tax_category_id" baseTableName="product" constraintName="FKcckt962xbthl4mv1o2bxs04u0" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="tax_category"/>
+    </changeSet>
+    <changeSet author="divisolxi (generated)" id="1517911859030-26">
+        <addForeignKeyConstraint baseColumnNames="labels_id" baseTableName="product_labels" constraintName="FKdelkneotum7aycnoi1dh731a8" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="label"/>
+    </changeSet>
+    <changeSet author="divisolxi (generated)" id="1517911859030-27">
+        <addForeignKeyConstraint baseColumnNames="stocks_id" baseTableName="stock_stock_lines" constraintName="FKdkhflx71p4l33ygqrqxquuolx" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="stock"/>
+    </changeSet>
+    <changeSet author="divisolxi (generated)" id="1517911859030-28">
+        <addForeignKeyConstraint baseColumnNames="product_id" baseTableName="note" constraintName="FKf4dpmsc2g563s6r95gx2jpbh4" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="product"/>
+    </changeSet>
+    <changeSet author="divisolxi (generated)" id="1517911859030-29">
+        <addForeignKeyConstraint baseColumnNames="tax_category_id" baseTableName="tax" constraintName="FKfowlj7ueu444c5f5phiqlx6k1" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="tax_category"/>
+    </changeSet>
+    <changeSet author="divisolxi (generated)" id="1517911859030-30">
+        <addForeignKeyConstraint baseColumnNames="product_id" baseTableName="tax" constraintName="FKkw5gig7yqd6edrxxdkuoc0a4u" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="product"/>
+    </changeSet>
+    <changeSet author="divisolxi (generated)" id="1517911859030-31">
+        <addForeignKeyConstraint baseColumnNames="uom_id" baseTableName="stock_line" constraintName="FKkwx4j2lwehs0fsbcjesyqxj54" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="uom"/>
+    </changeSet>
+    <changeSet author="divisolxi (generated)" id="1517911859030-32">
+        <addForeignKeyConstraint baseColumnNames="barcode_id" baseTableName="product" constraintName="FKsx81utdtw9a990yvuaig0e1hd" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="barcode"/>
+    </changeSet>
+    <changeSet author="divisolxi (generated)" id="1517911859030-33">
+        <addForeignKeyConstraint baseColumnNames="product_id" baseTableName="stock_line" constraintName="FKthx2s3d7m3t8ybnn12v2ua932" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="product"/>
+    </changeSet>
+    <changeSet author="divisolxi (generated)" id="1517911859030-34">
+        <addForeignKeyConstraint baseColumnNames="stock_lines_id" baseTableName="stock_stock_lines" constraintName="FKti3jw6lcnhaamy6m3df1nrdai" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="stock_line"/>
+    </changeSet>
+</databaseChangeLog>

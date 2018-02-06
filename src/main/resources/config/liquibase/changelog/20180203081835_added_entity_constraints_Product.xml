@@ -15,28 +15,6 @@
                                  referencedTableName="barcode"/>
 
         <addForeignKeyConstraint baseColumnNames="products_id"
-                                 baseTableName="product_uoms"
-                                 constraintName="fk_product_uoms_products_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="product"/>
-        <addForeignKeyConstraint baseColumnNames="uoms_id"
-                                 baseTableName="product_uoms"
-                                 constraintName="fk_product_uoms_uoms_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="uom"/>
-        
-        <addForeignKeyConstraint baseColumnNames="products_id"
-                                 baseTableName="product_categories"
-                                 constraintName="fk_product_categories_products_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="product"/>
-        <addForeignKeyConstraint baseColumnNames="categories_id"
-                                 baseTableName="product_categories"
-                                 constraintName="fk_product_categories_categories_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="category"/>
-        
-        <addForeignKeyConstraint baseColumnNames="products_id"
                                  baseTableName="product_labels"
                                  constraintName="fk_product_labels_products_id"
                                  referencedColumnNames="id"
@@ -47,6 +25,12 @@
                                  referencedColumnNames="id"
                                  referencedTableName="label"/>
         
+        <addForeignKeyConstraint baseColumnNames="category_id"
+                                 baseTableName="product"
+                                 constraintName="fk_product_category_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="category"/>
+
         <addForeignKeyConstraint baseColumnNames="status_id"
                                  baseTableName="product"
                                  constraintName="fk_product_status_id"

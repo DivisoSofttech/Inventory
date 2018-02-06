@@ -58,6 +58,9 @@ public class StockLine implements Serializable {
     @ManyToOne
     private Product product;
 
+    @ManyToOne
+    private Uom uom;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -208,6 +211,19 @@ public class StockLine implements Serializable {
 
     public void setProduct(Product product) {
         this.product = product;
+    }
+
+    public Uom getUom() {
+        return uom;
+    }
+
+    public StockLine uom(Uom uom) {
+        this.uom = uom;
+        return this;
+    }
+
+    public void setUom(Uom uom) {
+        this.uom = uom;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

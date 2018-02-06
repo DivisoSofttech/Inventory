@@ -30,26 +30,16 @@
         {
             "relationshipType": "many-to-many",
             "otherEntityRelationshipName": "",
-            "relationshipName": "uoms",
-            "otherEntityName": "uom",
-            "otherEntityField": "id",
-            "ownerSide": true
-        },
-        {
-            "relationshipType": "many-to-many",
-            "otherEntityRelationshipName": "",
-            "relationshipName": "categories",
-            "otherEntityName": "category",
-            "otherEntityField": "id",
-            "ownerSide": true
-        },
-        {
-            "relationshipType": "many-to-many",
-            "otherEntityRelationshipName": "",
             "relationshipName": "labels",
             "otherEntityName": "label",
             "otherEntityField": "id",
             "ownerSide": true
+        },
+        {
+            "relationshipName": "category",
+            "otherEntityName": "category",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
         },
         {
             "relationshipName": "status",

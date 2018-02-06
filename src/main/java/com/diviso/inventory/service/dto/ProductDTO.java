@@ -47,11 +47,9 @@ public class ProductDTO implements Serializable {
 
     private Long barcodeId;
 
-    private Set<UomDTO> uoms = new HashSet<>();
-
-    private Set<CategoryDTO> categories = new HashSet<>();
-
     private Set<LabelDTO> labels = new HashSet<>();
+
+    private Long categoryId;
 
     private Long statusId;
 
@@ -177,28 +175,20 @@ public class ProductDTO implements Serializable {
         this.barcodeId = barcodeId;
     }
 
-    public Set<UomDTO> getUoms() {
-        return uoms;
-    }
-
-    public void setUoms(Set<UomDTO> uoms) {
-        this.uoms = uoms;
-    }
-
-    public Set<CategoryDTO> getCategories() {
-        return categories;
-    }
-
-    public void setCategories(Set<CategoryDTO> categories) {
-        this.categories = categories;
-    }
-
     public Set<LabelDTO> getLabels() {
         return labels;
     }
 
     public void setLabels(Set<LabelDTO> labels) {
         this.labels = labels;
+    }
+
+    public Long getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
     }
 
     public Long getStatusId() {

@@ -75,6 +75,10 @@
             <column name="barcode_id" type="bigint">
                 <constraints unique="true" nullable="true" />
             </column>
+            <column name="category_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+
             <column name="status_id" type="bigint">
                 <constraints nullable="true" />
             </column>
@@ -85,28 +89,6 @@
 
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
-        
-        <createTable tableName="product_uoms">
-            <column name="uoms_id" type="bigint">
-                <constraints nullable="false"/>
-            </column>
-            <column name="products_id" type="bigint">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-
-        <addPrimaryKey columnNames="products_id, uoms_id" tableName="product_uoms"/>
-        
-        <createTable tableName="product_categories">
-            <column name="categories_id" type="bigint">
-                <constraints nullable="false"/>
-            </column>
-            <column name="products_id" type="bigint">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-
-        <addPrimaryKey columnNames="products_id, categories_id" tableName="product_categories"/>
         
         <createTable tableName="product_labels">
             <column name="labels_id" type="bigint">

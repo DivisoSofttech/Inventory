@@ -1,5 +1,6 @@
 package com.diviso.inventory.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -7,6 +8,8 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Objects;
 
 /**
@@ -29,6 +32,11 @@ public class Uom implements Serializable {
 
     @Column(name = "description")
     private String description;
+
+    @OneToMany(mappedBy = "uom")
+    @JsonIgnore
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<StockLine> stockLines = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -63,6 +71,31 @@ public class Uom implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Set<StockLine> getStockLines() {
+        return stockLines;
+    }
+
+    public Uom stockLines(Set<StockLine> stockLines) {
+        this.stockLines = stockLines;
+        return this;
+    }
+
+    public Uom addStockLines(StockLine stockLine) {
+        this.stockLines.add(stockLine);
+        stockLine.setUom(this);
+        return this;
+    }
+
+    public Uom removeStockLines(StockLine stockLine) {
+        this.stockLines.remove(stockLine);
+        stockLine.setUom(null);
+        return this;
+    }
+
+    public void setStockLines(Set<StockLine> stockLines) {
+        this.stockLines = stockLines;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

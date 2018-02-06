@@ -224,7 +224,7 @@ public class ProductServiceImpl implements ProductService {
 	@Transactional(readOnly=true)
 	public Page<ProductDTO> findByCategories_NameAndVisibleTrue(String name, Pageable pageable) {
 		log.debug("Request to get all Products by category name ",name);
-        return productRepository.findByCategories_NameIgnoreCaseAndVisibleTrue(name,pageable)
+        return productRepository.findByCategory_NameIgnoreCaseAndVisibleTrue(name,pageable)
             .map(productMapper::toDto);
 	}
 

@@ -6,6 +6,12 @@
             "otherEntityName": "product",
             "relationshipType": "many-to-one",
             "otherEntityField": "id"
+        },
+        {
+            "relationshipName": "uom",
+            "otherEntityName": "uom",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
         }
     ],
     "fields": [

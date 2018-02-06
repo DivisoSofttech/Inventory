@@ -298,7 +298,7 @@ public class StockLineServiceImpl implements StockLineService {
 	@Transactional(readOnly = true)
 	public Page<StockLineDTO> findByProduct_Categories_NameAndProduct_VisibleTrue(String name, Pageable pageable) {
 		log.debug("Request to get all stock-lines by product  category name ", name);
-		return stockLineRepository.findByProduct_Categories_NameIgnoreCaseAndProduct_VisibleTrue(name, pageable)
+		return stockLineRepository.findByProduct_Category_NameIgnoreCaseAndProduct_VisibleTrue(name, pageable)
 				.map(stockLineMapper::toDto);
 	}
 

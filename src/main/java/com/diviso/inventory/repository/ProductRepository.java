@@ -18,10 +18,10 @@ import java.util.List;
 @SuppressWarnings("unused")
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
-    @Query("select distinct product from Product product left join fetch product.uoms left join fetch product.categories left join fetch product.labels")
+    @Query("select distinct product from Product product left join fetch product.labels")
     List<Product> findAllWithEagerRelationships();
 
-    @Query("select product from Product product left join fetch product.uoms left join fetch product.categories left join fetch product.labels where product.id =:id")
+    @Query("select product from Product product left join fetch product.labels where product.id =:id")
     Product findOneWithEagerRelationships(@Param("id") Long id);
 
 	Page<Product> findByNameIgnoreCaseAndVisibleTrue(String name, Pageable pageable);
@@ -42,7 +42,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
 	Product findByBarcode_CodeAndVisibleTrue(String barcode);
 
-	Page<Product> findByCategories_NameIgnoreCaseAndVisibleTrue(String name, Pageable pageable);
+	Page<Product> findByCategory_NameIgnoreCaseAndVisibleTrue(String name, Pageable pageable);
 
 	Page<Product> findByDateOfMfdAndVisibleTrue(LocalDate dateOfMfd, Pageable pageable);
 

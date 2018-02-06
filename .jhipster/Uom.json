@@ -1,6 +1,13 @@
 {
     "fluentMethods": true,
-    "relationships": [],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "stockLines",
+            "otherEntityName": "stockLine",
+            "otherEntityRelationshipName": "uom"
+        }
+    ],
     "fields": [
         {
             "fieldName": "name",
