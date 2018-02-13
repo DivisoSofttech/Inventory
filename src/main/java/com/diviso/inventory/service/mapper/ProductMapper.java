@@ -20,7 +20,6 @@ public interface ProductMapper extends EntityMapper<ProductDTO, Product> {
     @Mapping(source = "barcodeId", target = "barcode")
     @Mapping(target = "notes", ignore = true)
     @Mapping(target = "stockLines", ignore = true)
-    @Mapping(target = "taxes", ignore = true)
     @Mapping(source = "categoryId", target = "category")
     @Mapping(source = "statusId", target = "status")
     @Mapping(source = "taxCategoryId", target = "taxCategory")

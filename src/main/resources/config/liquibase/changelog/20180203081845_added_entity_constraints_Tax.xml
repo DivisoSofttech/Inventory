@@ -8,12 +8,6 @@
     -->
     <changeSet id="20180203081845-2" author="jhipster">
         
-        <addForeignKeyConstraint baseColumnNames="product_id"
-                                 baseTableName="tax"
-                                 constraintName="fk_tax_product_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="product"/>
-
         <addForeignKeyConstraint baseColumnNames="tax_category_id"
                                  baseTableName="tax"
                                  constraintName="fk_tax_tax_category_id"

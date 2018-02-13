@@ -85,7 +85,6 @@ relationship OneToMany{
 	TaxCategory{taxes} to Tax,
 	TaxCategory{products} to Product,
 	Product{stockLines} to StockLine,
-	Product{taxes} to Tax,
 	Category{product} to Product,
 	Uom{stockLines} to StockLine
 }

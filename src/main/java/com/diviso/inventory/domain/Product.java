@@ -84,11 +84,6 @@ public class Product implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<StockLine> stockLines = new HashSet<>();
 
-    @OneToMany(mappedBy = "product")
-    @JsonIgnore
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Tax> taxes = new HashSet<>();
-
     @ManyToMany
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @JoinTable(name = "product_labels",
@@ -344,31 +339,6 @@ public class Product implements Serializable {
 
     public void setStockLines(Set<StockLine> stockLines) {
         this.stockLines = stockLines;
-    }
-
-    public Set<Tax> getTaxes() {
-        return taxes;
-    }
-
-    public Product taxes(Set<Tax> taxes) {
-        this.taxes = taxes;
-        return this;
-    }
-
-    public Product addTaxes(Tax tax) {
-        this.taxes.add(tax);
-        tax.setProduct(this);
-        return this;
-    }
-
-    public Product removeTaxes(Tax tax) {
-        this.taxes.remove(tax);
-        tax.setProduct(null);
-        return this;
-    }
-
-    public void setTaxes(Set<Tax> taxes) {
-        this.taxes = taxes;
     }
 
     public Set<Label> getLabels() {

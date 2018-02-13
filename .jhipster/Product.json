@@ -22,12 +22,6 @@
             "otherEntityRelationshipName": "product"
         },
         {
-            "relationshipType": "one-to-many",
-            "relationshipName": "taxes",
-            "otherEntityName": "tax",
-            "otherEntityRelationshipName": "product"
-        },
-        {
             "relationshipType": "many-to-many",
             "otherEntityRelationshipName": "",
             "relationshipName": "labels",

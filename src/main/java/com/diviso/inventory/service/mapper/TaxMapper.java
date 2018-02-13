@@ -8,14 +8,12 @@ import org.mapstruct.*;
 /**
  * Mapper for the entity Tax and its DTO TaxDTO.
  */
-@Mapper(componentModel = "spring", uses = {ProductMapper.class, TaxCategoryMapper.class})
+@Mapper(componentModel = "spring", uses = {TaxCategoryMapper.class})
 public interface TaxMapper extends EntityMapper<TaxDTO, Tax> {
 
-    @Mapping(source = "product.id", target = "productId")
     @Mapping(source = "taxCategory.id", target = "taxCategoryId")
     TaxDTO toDto(Tax tax);
 
-    @Mapping(source = "productId", target = "product")
     @Mapping(source = "taxCategoryId", target = "taxCategory")
     Tax toEntity(TaxDTO taxDTO);
 

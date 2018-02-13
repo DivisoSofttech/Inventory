@@ -41,9 +41,6 @@ public class Tax implements Serializable {
     private TaxTypes taxType;
 
     @ManyToOne
-    private Product product;
-
-    @ManyToOne
     private TaxCategory taxCategory;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
@@ -105,19 +102,6 @@ public class Tax implements Serializable {
 
     public void setTaxType(TaxTypes taxType) {
         this.taxType = taxType;
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public Tax product(Product product) {
-        this.product = product;
-        return this;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
     }
 
     public TaxCategory getTaxCategory() {

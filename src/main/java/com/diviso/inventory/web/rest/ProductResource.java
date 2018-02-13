@@ -110,6 +110,15 @@ public class ProductResource {
         ProductDTO productDTO = productService.findOne(id);
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(productDTO));
     }
+    
+    /**
+     * GET  /products/marsheld/:id : get the "id" product.
+     *
+     * @param id the id of the productDTO to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the productDTO, or with status 404 (Not Found)
+     *//*
+    @GetMapping("/products/marsheld/{id}")
+    public ResponseEntity<>*/
 
     /**
      * DELETE  /products/:id : delete the "id" product.
