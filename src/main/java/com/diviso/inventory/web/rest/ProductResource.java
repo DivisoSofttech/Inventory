@@ -1,6 +1,9 @@
 package com.diviso.inventory.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import com.diviso.inventory.domain.Product;
+import com.diviso.inventory.model.NoteModel;
+import com.diviso.inventory.model.ProductModel;
 import com.diviso.inventory.service.ProductService;
 import com.diviso.inventory.web.rest.errors.BadRequestAlertException;
 import com.diviso.inventory.web.rest.util.HeaderUtil;
@@ -10,6 +13,7 @@ import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -116,9 +120,30 @@ public class ProductResource {
      *
      * @param id the id of the productDTO to retrieve
      * @return the ResponseEntity with status 200 (OK) and with body the productDTO, or with status 404 (Not Found)
-     *//*
+     */
     @GetMapping("/products/marsheld/{id}")
-    public ResponseEntity<>*/
+    @Timed
+    public ResponseEntity<ProductModel> getMarsheldProductById(@PathVariable Long id) {
+        log.debug("REST request to get Product : {}", id);
+        ProductModel productModel = productService.findMarsheldProduct(id);
+        List<NoteModel> noteModels=productService.findNoteByProductId(id,new PageRequest(0, 10));
+        productModel.setNotes(noteModels);
+        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(productModel));
+    }
+    
+
+    /**
+     * GET  /products/notes/findByProductId/:id : get the "productId" notes.
+     *
+     * @param id the id of the productDTO to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the NoteModel, or with status 404 (Not Found)
+     */
+    @GetMapping("/products/notes/findByProductId/{id}")
+    @Timed
+    public ResponseEntity<List<NoteModel>> getNotesByProductId(@PathVariable Long id,Pageable pageable ){
+    	log.debug("REST request to get NoteModels by product id : {}", id);
+    	return new ResponseEntity<>(productService.findNoteByProductId(id, pageable),HttpStatus.OK);
+    }
 
     /**
      * DELETE  /products/:id : delete the "id" product.

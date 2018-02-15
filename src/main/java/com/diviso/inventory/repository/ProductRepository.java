@@ -1,6 +1,8 @@
 package com.diviso.inventory.repository;
 
+import com.diviso.inventory.domain.Note;
 import com.diviso.inventory.domain.Product;
+import com.diviso.inventory.model.ProductModel;
 import com.diviso.inventory.service.dto.ProductDTO;
 
 import org.springframework.stereotype.Repository;
@@ -52,4 +54,10 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
 	Page<Product> findByStatus_NameIgnoreCaseAndVisibleTrue(String status, Pageable pageable);
 
+	@Query("select distinct n from Product p join  p.notes n where p.id=:id")
+	Page<Note> findNotesByProductId(@Param("id")Long id,Pageable pageable);
+
+	/*@Query("select distinct p,b,s,c,tc from Product p join p.barcode b join p.status s join p.category c join p.taxCategory tc where p.id=:id ")
+	ProductModel findById(@Param("id") Long id);
+*/
 }

@@ -1,8 +1,12 @@
 package com.diviso.inventory.service;
 
+import com.diviso.inventory.domain.Product;
+import com.diviso.inventory.model.NoteModel;
+import com.diviso.inventory.model.ProductModel;
 import com.diviso.inventory.service.dto.ProductDTO;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -154,4 +158,8 @@ public interface ProductService {
      * @return the list of entities
      */
 	Page<ProductDTO> findByStatus_NameAndVisibleTrue(String status, Pageable pageable);
+
+	ProductModel findMarsheldProduct(Long id);
+
+	List<NoteModel> findNoteByProductId(Long id,Pageable pageable);
 }

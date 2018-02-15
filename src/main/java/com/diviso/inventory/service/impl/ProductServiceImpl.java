@@ -1,12 +1,28 @@
 package com.diviso.inventory.service.impl;
 
 import com.diviso.inventory.service.ProductService;
+import com.diviso.inventory.domain.Barcode;
+import com.diviso.inventory.domain.Category;
+import com.diviso.inventory.domain.Label;
+import com.diviso.inventory.domain.Note;
 import com.diviso.inventory.domain.Product;
+import com.diviso.inventory.domain.Status;
+import com.diviso.inventory.domain.TaxCategory;
+import com.diviso.inventory.model.BarcodeModel;
+import com.diviso.inventory.model.CategoryModel;
+import com.diviso.inventory.model.LabelModel;
+import com.diviso.inventory.model.NoteModel;
+import com.diviso.inventory.model.ProductModel;
+import com.diviso.inventory.model.StatusModel;
+import com.diviso.inventory.model.TaxCategoryModel;
 import com.diviso.inventory.repository.ProductRepository;
 import com.diviso.inventory.service.dto.ProductDTO;
 import com.diviso.inventory.service.mapper.ProductMapper;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -283,5 +299,38 @@ public class ProductServiceImpl implements ProductService {
 		log.debug("Request to get all Products by status ",status);
         return productRepository.findByStatus_NameIgnoreCaseAndVisibleTrue(status,pageable)
             .map(productMapper::toDto);
+	}
+
+	@Override
+	@Transactional(readOnly=true)
+	public ProductModel findMarsheldProduct(Long id) {
+		
+		Product product= productRepository.findOne(id);
+		ProductModel productModel=new ProductModel(product.getId(),product.getName(),product.isVisible(),product.getDateOfExpiry(),product.getDateOfMfd(),product.getImage(),product.getImageContentType(),product.getDescription(),product.getMaximumStockLevel(),product.getSearchkey(),product.getSku(),product.getMpn(),product.getReOrderLevel(),product.getReference());
+		Barcode barcode=product.getBarcode();
+		Category category=product.getCategory();
+		TaxCategory taxCategory=product.getTaxCategory();
+		Status status=product.getStatus();
+		productModel.setBarcode(new BarcodeModel(barcode.getId(),barcode.getCode(),barcode.getDescription()));
+		productModel.setCategoryModel(new CategoryModel(category.getId(),category.getDescription(),category.getImage(),category.getImageContentType(),category.getName()));
+		productModel.setTaxCategoryModel(new TaxCategoryModel(taxCategory.getId(),taxCategory.getDescription(),taxCategory.getName()));
+		List<LabelModel> list=new ArrayList<LabelModel>();
+		for(Label label:product.getLabels()) {
+			LabelModel labelModel=new LabelModel(label.getId(),label.getDescription(),label.getName());
+			list.add(labelModel);
+		}
+		productModel.setLabels(list);
+		productModel.setStatus(new StatusModel(status.getId(),status.getDescription(),status.getName(),status.getReference()));
+		return productModel;
+	}
+
+	@Override
+	public List<NoteModel> findNoteByProductId(Long id,Pageable pageable) {
+		Page<Note> notes=productRepository.findNotesByProductId(id, pageable);
+		List<NoteModel> noteModels=new ArrayList<NoteModel> ();
+		for(Note note:notes.getContent()) {
+			noteModels.add(new NoteModel(note.getId(),note.getDateOfCreation(),note.getMatter()));
+		}
+		return noteModels;
 	}
 }
