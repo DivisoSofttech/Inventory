@@ -193,7 +193,7 @@ public class StockResource {
      */
     @GetMapping("/stocks/findByStatus/{status}")
     @Timed
-    public ResponseEntity<List<StockDTO>> getAllStocksByStatus(@PathVariable LocalDate status,Pageable pageable) {
+    public ResponseEntity<List<StockDTO>> getAllStocksByStatus(@PathVariable String status,Pageable pageable) {
         log.debug("REST request to get a page of Stocks by Status ",status);
         Page<StockDTO> page = stockService.findByStatus_Name(status,pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/stocks/findByStatus");

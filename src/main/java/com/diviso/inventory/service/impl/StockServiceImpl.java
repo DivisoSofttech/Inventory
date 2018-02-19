@@ -164,7 +164,7 @@ public class StockServiceImpl implements StockService {
      */
     @Override
     @Transactional(readOnly = true)
-	public Page<StockDTO> findByStatus_Name(LocalDate status, Pageable pageable) {
+	public Page<StockDTO> findByStatus_Name(String status, Pageable pageable) {
     	log.debug("Request to get all Stocks by  status ",status);
         return stockRepository.findByStatus_Name(status,pageable)
             .map(stockMapper::toDto);

@@ -1,6 +1,5 @@
 package com.diviso.inventory.config;
 
-import io.github.jhipster.config.JHipsterConstants;
 import io.github.jhipster.config.JHipsterProperties;
 
 import com.codahale.metrics.MetricRegistry;

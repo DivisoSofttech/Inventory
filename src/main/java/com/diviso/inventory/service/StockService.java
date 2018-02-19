@@ -83,7 +83,7 @@ public interface StockService {
      * @param pageable the pagination information and the status of the stock
      * @return the list of entities
      */
-	Page<StockDTO> findByStatus_Name(LocalDate status, Pageable pageable);
+	Page<StockDTO> findByStatus_Name(String status, Pageable pageable);
 
 	StockModel findMarsheldStockById(Long id);
    

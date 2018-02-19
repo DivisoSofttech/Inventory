@@ -32,6 +32,6 @@ public interface StockRepository extends JpaRepository<Stock, Long> {
 
 	Page<Stock> findByDateOfStockUpdatedBetween(LocalDate from, LocalDate to, Pageable pageable);
 
-	Page<Stock> findByStatus_Name(LocalDate status, Pageable pageable);
+	Page<Stock> findByStatus_Name(String status, Pageable pageable);
 
 }
