@@ -1,6 +1,7 @@
 package com.diviso.inventory.service;
 
 
+import com.diviso.inventory.model.StockModel;
 import com.diviso.inventory.service.dto.StockDTO;
 
 import java.time.LocalDate;
@@ -83,5 +84,7 @@ public interface StockService {
      * @return the list of entities
      */
 	Page<StockDTO> findByStatus_Name(LocalDate status, Pageable pageable);
+
+	StockModel findMarsheldStockById(Long id);
    
 }

@@ -1,12 +1,25 @@
 package com.diviso.inventory.service.impl;
 
 import com.diviso.inventory.service.StockService;
+import com.diviso.inventory.domain.Product;
+import com.diviso.inventory.domain.Status;
 import com.diviso.inventory.domain.Stock;
+import com.diviso.inventory.domain.StockLine;
+import com.diviso.inventory.domain.Uom;
+import com.diviso.inventory.model.ProductModel;
+import com.diviso.inventory.model.StatusModel;
+import com.diviso.inventory.model.StockLineModel;
+import com.diviso.inventory.model.StockModel;
+import com.diviso.inventory.model.TaxCategoryModel;
+import com.diviso.inventory.model.UomModel;
 import com.diviso.inventory.repository.StockRepository;
 import com.diviso.inventory.service.dto.StockDTO;
 import com.diviso.inventory.service.mapper.StockMapper;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -155,5 +168,33 @@ public class StockServiceImpl implements StockService {
     	log.debug("Request to get all Stocks by  status ",status);
         return stockRepository.findByStatus_Name(status,pageable)
             .map(stockMapper::toDto);
+	}
+
+	@Override
+	public StockModel findMarsheldStockById(Long id) {
+		Stock stock=stockRepository.findOne(id);
+		Set<StockLine> stockLines=stock.getStockLines();
+		List<StockLineModel> stockLineModelList=new ArrayList<StockLineModel>();
+		while(stockLines.iterator().hasNext()) {
+			StockLine stockLine=stockLines.iterator().next();
+			Product product=stockLine.getProduct();
+			Uom uom=stockLine.getUom();
+			UomModel uomModel=new UomModel();
+			uomModel.setId(uom.getId());
+			uomModel.setName(uom.getName());
+			ProductModel productModel=new ProductModel();
+			productModel.setId(product.getId());
+			productModel.setName(product.getName());
+			productModel.setTaxCategoryModel(new TaxCategoryModel(product.getTaxCategory().getId(), product.getTaxCategory().getDescription(), product.getTaxCategory().getName()));
+			StockLineModel stockLineModel=new StockLineModel(stockLine.getId(),stockLine.getReference(),stockLine.getBuyPrice(),stockLine.getGrossProfit(),stockLine.getSellPriceExclusive(),stockLine.getSellPriceInclusive(),stockLine.getMargin(),stockLine.getInfrastructureId(),stockLine.getLocationId(),productModel,stockLine.getUnits(),uomModel);
+			stockLineModelList.add(stockLineModel);
+		}
+		Status status=stock.getStatus();
+		StatusModel statusModel=new StatusModel(status.getId(),status.getDescription(),status.getName(),status.getReference()) ;
+
+		StockModel stockModel=new StockModel(stock.getId(),stock.getDateOfStockUpdated(),stock.getDeliveryNoteRef(),stock.getReference(),stockLineModelList,stock.getStorageCost(),statusModel
+				);
+		stockModel.setStatus(statusModel);
+		return stockModel;
 	}
 }

@@ -1,8 +1,6 @@
 package com.diviso.inventory.model;
 
-import java.util.Set;
 
-import com.diviso.inventory.domain.Tax;
 
 public class TaxCategoryModel {
 

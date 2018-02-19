@@ -1,6 +1,5 @@
 package com.diviso.inventory.model;
 
-import com.diviso.inventory.domain.enumeration.BarcodeType;
 
 public class BarcodeModel {
 	private Long id;

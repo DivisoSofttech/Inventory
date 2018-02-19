@@ -1,7 +1,6 @@
 package com.diviso.inventory.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
-import com.diviso.inventory.domain.Product;
 import com.diviso.inventory.model.NoteModel;
 import com.diviso.inventory.model.ProductModel;
 import com.diviso.inventory.service.ProductService;
