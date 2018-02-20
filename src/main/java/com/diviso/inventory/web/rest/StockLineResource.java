@@ -1,6 +1,7 @@
 package com.diviso.inventory.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import com.diviso.inventory.model.StockLineModel;
 import com.diviso.inventory.service.StockLineService;
 import com.diviso.inventory.web.rest.errors.BadRequestAlertException;
 import com.diviso.inventory.web.rest.util.HeaderUtil;
@@ -397,6 +398,23 @@ public class StockLineResource {
     	return new ResponseEntity<>(list,  HttpStatus.OK);
                 
     }
+    
+    /**
+     * GET  /stock-lines/marsheld/:id : get the "id" stockLine.
+     *
+     * @param id the id of the stockLineModel to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the stockLineDTO, or with status 404 (Not Found)
+     */
+    @GetMapping("/stock-lines/{id}")
+    @Timed
+    public ResponseEntity<StockLineModel> getMarsheldStockLine(@PathVariable Long id) {
+        log.debug("REST request to get StockLine : {}", id);
+        StockLineModel stockLineModel = stockLineService.findMarsheldStockLine(id);
+        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(stockLineModel));
+    }
+    
+    
+    
     
     
     

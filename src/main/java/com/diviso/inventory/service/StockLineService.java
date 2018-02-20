@@ -1,5 +1,6 @@
 package com.diviso.inventory.service;
 
+import com.diviso.inventory.model.StockLineModel;
 import com.diviso.inventory.service.dto.StockLineDTO;
 
 import java.time.LocalDate;
@@ -192,4 +193,6 @@ public interface StockLineService {
 	Page<StockLineDTO> findBySupplierRef(Long supplierRef, Pageable pageable);
 
 	List<StockLineDTO> updateStockLevel(ArrayList<StockLineDTO> stockLines);
+
+	StockLineModel findMarsheldStockLine(Long id);
 }

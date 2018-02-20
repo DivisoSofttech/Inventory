@@ -1,7 +1,13 @@
 package com.diviso.inventory.service.impl;
 
 import com.diviso.inventory.service.StockLineService;
+import com.diviso.inventory.domain.Product;
 import com.diviso.inventory.domain.StockLine;
+import com.diviso.inventory.domain.Uom;
+import com.diviso.inventory.model.ProductModel;
+import com.diviso.inventory.model.StockLineModel;
+import com.diviso.inventory.model.TaxCategoryModel;
+import com.diviso.inventory.model.UomModel;
 import com.diviso.inventory.repository.StockLineRepository;
 import com.diviso.inventory.service.dto.StockLineDTO;
 import com.diviso.inventory.service.mapper.StockLineMapper;
@@ -369,5 +375,21 @@ public class StockLineServiceImpl implements StockLineService {
 			stockLineRepository.save(line);
 		}
 		return stockLines;
+	}
+
+	@Override
+	public StockLineModel findMarsheldStockLine(Long id) {
+		StockLine stockLine=stockLineRepository.findOne(id);
+		Product product=stockLine.getProduct();
+		Uom uom=stockLine.getUom();
+		UomModel uomModel=new UomModel();
+		uomModel.setId(uom.getId());
+		uomModel.setName(uom.getName());
+		ProductModel productModel=new ProductModel();
+		productModel.setId(product.getId());
+		productModel.setName(product.getName());
+		productModel.setTaxCategoryModel(new TaxCategoryModel(product.getTaxCategory().getId(), product.getTaxCategory().getDescription(), product.getTaxCategory().getName()));
+		StockLineModel stockLineModel=new StockLineModel(stockLine.getId(),stockLine.getReference(),stockLine.getBuyPrice(),stockLine.getGrossProfit(),stockLine.getSellPriceExclusive(),stockLine.getSellPriceInclusive(),stockLine.getMargin(),stockLine.getInfrastructureId(),stockLine.getLocationId(),productModel,stockLine.getUnits(),uomModel);
+		return stockLineModel;
 	}
 }
