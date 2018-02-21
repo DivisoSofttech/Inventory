@@ -206,7 +206,7 @@ public class StockResource {
      * @param id the id of the stockModel to retrieve
      * @return the ResponseEntity with status 200 (OK) StockLine_Product_ with body the stockDTO, or with status 404 (Not Found)
      */
-    @GetMapping("/stocks/marsheld{id}")
+    @GetMapping("/stocks/marsheld/{id}")
     @Timed
     public ResponseEntity<StockModel> getMarsheldStockById(@PathVariable Long id) {
         log.debug("REST request to get Stock : {}", id);
