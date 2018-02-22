@@ -176,8 +176,9 @@ public class StockServiceImpl implements StockService {
 		Stock stock=stockRepository.findOne(id);
 		Set<StockLine> stockLines=stockRepository.findStockLinesByStockId(stock.getId());
 		List<StockLineModel> stockLineModelList=new ArrayList<StockLineModel>();
-		while(stockLines.iterator().hasNext()) {
-			StockLine stockLine=stockLines.iterator().next();
+		
+		for(StockLine stockLine:stockLines) {
+			
 			Product product=stockLine.getProduct();
 			Uom uom=stockLine.getUom();
 			UomModel uomModel=new UomModel();

@@ -33,6 +33,10 @@ public class StockModel {
 		this.status=statusModel;
 	}
 
+	public StockModel() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public LocalDate getDateOfStockUpdated() {
 		return dateOfStockUpdated;
 	}
