@@ -3,9 +3,21 @@ package com.diviso.inventory.model;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ProductModel {
+
+	@Override
+	public String toString() {
+		return "ProductModel [barcode=" + barcode + ", id=" + id + ", maximumStockLevel=" + maximumStockLevel
+				+ ", image=" + Arrays.toString(image) + ", imageContentType=" + imageContentType + ", searchkey="
+				+ searchkey + ", display=" + display + ", dateOfMfd=" + dateOfMfd + ", dateOfExpiry=" + dateOfExpiry
+				+ ", sku=" + sku + ", mpn=" + mpn + ", reOrderLevel=" + reOrderLevel + ", categoryModel="
+				+ categoryModel + ", taxCategoryModel=" + taxCategoryModel + ", reference=" + reference + ", name="
+				+ name + ", description=" + description + ", status=" + status + ", notes=" + notes + ", labels="
+				+ labels + "]";
+	}
 
 	private BarcodeModel barcode;
 	private Long id;

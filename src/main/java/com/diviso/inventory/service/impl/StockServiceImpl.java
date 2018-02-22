@@ -171,9 +171,10 @@ public class StockServiceImpl implements StockService {
 	}
 
 	@Override
+	@Transactional(readOnly=true)
 	public StockModel findMarsheldStockById(Long id) {
 		Stock stock=stockRepository.findOne(id);
-		Set<StockLine> stockLines=stock.getStockLines();
+		Set<StockLine> stockLines=stockRepository.findStockLinesByStockId(stock.getId());
 		List<StockLineModel> stockLineModelList=new ArrayList<StockLineModel>();
 		while(stockLines.iterator().hasNext()) {
 			StockLine stockLine=stockLines.iterator().next();
@@ -195,6 +196,7 @@ public class StockServiceImpl implements StockService {
 		StockModel stockModel=new StockModel(stock.getId(),stock.getDateOfStockUpdated(),stock.getDeliveryNoteRef(),stock.getReference(),stockLineModelList,stock.getStorageCost(),statusModel
 				);
 		stockModel.setStatus(statusModel);
+		System.out.println(stockModel);
 		return stockModel;
 	}
 }

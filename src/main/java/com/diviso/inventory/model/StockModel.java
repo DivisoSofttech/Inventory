@@ -92,4 +92,11 @@ public class StockModel {
 	@JsonProperty("storageCost")
 	private Double storageCost = null;
 
+	@Override
+	public String toString() {
+		return "StockModel [dateOfStockUpdated=" + dateOfStockUpdated + ", deliveryNoteRef=" + deliveryNoteRef + ", id="
+				+ id + ", reference=" + reference + ", status=" + status + ", stockLines=" + stockLines
+				+ ", storageCost=" + storageCost + "]";
+	}
+
 }

@@ -4,6 +4,15 @@ package com.diviso.inventory.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class StockLineModel {
+	@Override
+	public String toString() {
+		return "StockLineModel [buyPrice=" + buyPrice + ", grossProfit=" + grossProfit + ", id=" + id
+				+ ", infrastructureId=" + infrastructureId + ", locationId=" + locationId + ", margin=" + margin
+				+ ", product=" + product + ", reference=" + reference + ", sellPriceExclusive=" + sellPriceExclusive
+				+ ", sellPriceInclusive=" + sellPriceInclusive + ", supplierRef=" + supplierRef + ", units=" + units
+				+ ", uom=" + uom + "]";
+	}
+
 	@JsonProperty("buyPrice")
 	private Double buyPrice = null;
 
