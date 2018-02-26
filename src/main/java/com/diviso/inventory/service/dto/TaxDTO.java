@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Objects;
-import com.diviso.inventory.domain.enumeration.TaxTypes;
+import com.diviso.inventory.domain.enumeration.TaxType;
 
 /**
  * A DTO for the Tax entity.
@@ -23,7 +23,7 @@ public class TaxDTO implements Serializable {
     @NotNull
     private Double rate;
 
-    private TaxTypes taxType;
+    private TaxType type;
 
     private Long taxCategoryId;
 
@@ -59,12 +59,12 @@ public class TaxDTO implements Serializable {
         this.rate = rate;
     }
 
-    public TaxTypes getTaxType() {
-        return taxType;
+    public TaxType getType() {
+        return type;
     }
 
-    public void setTaxType(TaxTypes taxType) {
-        this.taxType = taxType;
+    public void setType(TaxType type) {
+        this.type = type;
     }
 
     public Long getTaxCategoryId() {
@@ -103,7 +103,7 @@ public class TaxDTO implements Serializable {
             ", name='" + getName() + "'" +
             ", description='" + getDescription() + "'" +
             ", rate=" + getRate() +
-            ", taxType='" + getTaxType() + "'" +
+            ", type='" + getType() + "'" +
             "}";
     }
 }

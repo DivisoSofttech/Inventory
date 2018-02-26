@@ -32,7 +32,7 @@ import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-import com.diviso.inventory.domain.enumeration.TaxTypes;
+import com.diviso.inventory.domain.enumeration.TaxType;
 /**
  * Test class for the TaxResource REST controller.
  *
@@ -51,8 +51,8 @@ public class TaxResourceIntTest {
     private static final Double DEFAULT_RATE = 1D;
     private static final Double UPDATED_RATE = 2D;
 
-    private static final TaxTypes DEFAULT_TAX_TYPE = TaxTypes.CGST;
-    private static final TaxTypes UPDATED_TAX_TYPE = TaxTypes.SGST;
+    private static final TaxType DEFAULT_TYPE = TaxType.CGST;
+    private static final TaxType UPDATED_TYPE = TaxType.SGST;
 
     @Autowired
     private TaxRepository taxRepository;
@@ -101,7 +101,7 @@ public class TaxResourceIntTest {
             .name(DEFAULT_NAME)
             .description(DEFAULT_DESCRIPTION)
             .rate(DEFAULT_RATE)
-            .taxType(DEFAULT_TAX_TYPE);
+            .type(DEFAULT_TYPE);
         return tax;
     }
 
@@ -129,7 +129,7 @@ public class TaxResourceIntTest {
         assertThat(testTax.getName()).isEqualTo(DEFAULT_NAME);
         assertThat(testTax.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
         assertThat(testTax.getRate()).isEqualTo(DEFAULT_RATE);
-        assertThat(testTax.getTaxType()).isEqualTo(DEFAULT_TAX_TYPE);
+        assertThat(testTax.getType()).isEqualTo(DEFAULT_TYPE);
     }
 
     @Test
@@ -204,7 +204,7 @@ public class TaxResourceIntTest {
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
             .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
             .andExpect(jsonPath("$.[*].rate").value(hasItem(DEFAULT_RATE.doubleValue())))
-            .andExpect(jsonPath("$.[*].taxType").value(hasItem(DEFAULT_TAX_TYPE.toString())));
+            .andExpect(jsonPath("$.[*].type").value(hasItem(DEFAULT_TYPE.toString())));
     }
 
     @Test
@@ -221,7 +221,7 @@ public class TaxResourceIntTest {
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()))
             .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()))
             .andExpect(jsonPath("$.rate").value(DEFAULT_RATE.doubleValue()))
-            .andExpect(jsonPath("$.taxType").value(DEFAULT_TAX_TYPE.toString()));
+            .andExpect(jsonPath("$.type").value(DEFAULT_TYPE.toString()));
     }
 
     @Test
@@ -247,7 +247,7 @@ public class TaxResourceIntTest {
             .name(UPDATED_NAME)
             .description(UPDATED_DESCRIPTION)
             .rate(UPDATED_RATE)
-            .taxType(UPDATED_TAX_TYPE);
+            .type(UPDATED_TYPE);
         TaxDTO taxDTO = taxMapper.toDto(updatedTax);
 
         restTaxMockMvc.perform(put("/api/taxes")
@@ -262,7 +262,7 @@ public class TaxResourceIntTest {
         assertThat(testTax.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testTax.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
         assertThat(testTax.getRate()).isEqualTo(UPDATED_RATE);
-        assertThat(testTax.getTaxType()).isEqualTo(UPDATED_TAX_TYPE);
+        assertThat(testTax.getType()).isEqualTo(UPDATED_TYPE);
     }
 
     @Test

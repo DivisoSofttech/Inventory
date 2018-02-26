@@ -9,7 +9,7 @@ import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Objects;
 
-import com.diviso.inventory.domain.enumeration.TaxTypes;
+import com.diviso.inventory.domain.enumeration.TaxType;
 
 /**
  * A Tax.
@@ -37,8 +37,8 @@ public class Tax implements Serializable {
     private Double rate;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "tax_type")
-    private TaxTypes taxType;
+    @Column(name = "jhi_type")
+    private TaxType type;
 
     @ManyToOne
     private TaxCategory taxCategory;
@@ -91,17 +91,17 @@ public class Tax implements Serializable {
         this.rate = rate;
     }
 
-    public TaxTypes getTaxType() {
-        return taxType;
+    public TaxType getType() {
+        return type;
     }
 
-    public Tax taxType(TaxTypes taxType) {
-        this.taxType = taxType;
+    public Tax type(TaxType type) {
+        this.type = type;
         return this;
     }
 
-    public void setTaxType(TaxTypes taxType) {
-        this.taxType = taxType;
+    public void setType(TaxType type) {
+        this.type = type;
     }
 
     public TaxCategory getTaxCategory() {
@@ -145,7 +145,7 @@ public class Tax implements Serializable {
             ", name='" + getName() + "'" +
             ", description='" + getDescription() + "'" +
             ", rate=" + getRate() +
-            ", taxType='" + getTaxType() + "'" +
+            ", type='" + getType() + "'" +
             "}";
     }
 }

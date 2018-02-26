@@ -34,7 +34,7 @@
                 <constraints nullable="false" />
             </column>
 
-            <column name="tax_type" type="varchar(255)">
+            <column name="jhi_type" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
 

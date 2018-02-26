@@ -124,4 +124,8 @@ public class TaxCategoryResource {
         taxCategoryService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
+    
+    
+    
+    
 }

@@ -2,12 +2,18 @@ package com.diviso.inventory.service.impl;
 
 import com.diviso.inventory.service.TaxService;
 import com.diviso.inventory.domain.Tax;
+import com.diviso.inventory.model.TaxModel;
 import com.diviso.inventory.repository.TaxRepository;
 import com.diviso.inventory.service.dto.TaxDTO;
 import com.diviso.inventory.service.mapper.TaxMapper;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -83,4 +89,15 @@ public class TaxServiceImpl implements TaxService {
         log.debug("Request to delete Tax : {}", id);
         taxRepository.delete(id);
     }
+
+	@Override
+	public List<TaxModel> findByTaxCategoryId(Long id) {
+		Page<Tax> taxes=taxRepository.findByTaxCategory_Id(id,new PageRequest(0, 10));
+		List<TaxModel> taxModels=new ArrayList<TaxModel>();
+		for(Tax tax:taxes) {
+			TaxModel taxModel=new TaxModel(tax.getId(),tax.getName(),tax.getRate(),tax.getType());
+			taxModels.add(taxModel);
+		}
+		return taxModels;
+	}
 }

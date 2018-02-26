@@ -1,6 +1,10 @@
 package com.diviso.inventory.service;
 
+import com.diviso.inventory.model.TaxModel;
 import com.diviso.inventory.service.dto.TaxDTO;
+
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -39,4 +43,6 @@ public interface TaxService {
      * @param id the id of the entity
      */
     void delete(Long id);
+
+	List<TaxModel> findByTaxCategoryId(Long id);
 }

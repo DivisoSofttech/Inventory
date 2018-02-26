@@ -28,8 +28,8 @@
             ]
         },
         {
-            "fieldName": "taxType",
-            "fieldType": "TaxTypes",
+            "fieldName": "type",
+            "fieldType": "TaxType",
             "fieldValues": "CGST,SGST,IGST,UGST,CESS"
         }
     ],

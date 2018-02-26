@@ -2,6 +2,10 @@ package com.diviso.inventory.model;
 
 
 
+import com.diviso.inventory.domain.enumeration.TaxType;
+
+
+
 public class TaxModel   {
   
   private String description = null;
@@ -16,10 +20,31 @@ public class TaxModel   {
   
   private Double rate = null;
 
-  
-  private TaxCategoryModel taxCategory = null;
+ 
+  private TaxType type;
+ 
 
-  public String getDescription() {
+  public TaxModel(Long id2, String name2, Double rate2, TaxType taxType2) {
+	// TODO Auto-generated constructor stub
+	  id=id2;
+	  name=name2;
+	  rate=rate2;
+	  type=taxType2;
+	  
+}
+
+
+public TaxType getType() {
+	return type;
+}
+
+
+public void setType(TaxType type) {
+	this.type = type;
+}
+
+
+public String getDescription() {
 	return description;
 }
 
@@ -59,14 +84,6 @@ public void setRate(Double rate) {
 }
 
 
-public TaxCategoryModel getTaxCategory() {
-	return taxCategory;
-}
-
-
-public void setTaxCategory(TaxCategoryModel taxCategory) {
-	this.taxCategory = taxCategory;
-}
 
 
 public TaxTypeEnum getTaxType() {

@@ -1,6 +1,7 @@
 package com.diviso.inventory.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import com.diviso.inventory.model.TaxModel;
 import com.diviso.inventory.service.TaxService;
 import com.diviso.inventory.web.rest.errors.BadRequestAlertException;
 import com.diviso.inventory.web.rest.util.HeaderUtil;
@@ -123,5 +124,19 @@ public class TaxResource {
         log.debug("REST request to delete Tax : {}", id);
         taxService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
+    }
+    
+    /**
+     * GET  /taxes/:id : get the "id" tax.
+     *
+     * @param id the id of the taxDTO to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the taxDTO, or with status 404 (Not Found)
+     */
+    @GetMapping("/taxes/findByTaxCategoryId/{id}")
+    @Timed
+    public ResponseEntity<List<TaxModel>> getAllTaxesByTaxCategoryId(@PathVariable Long id) {
+        log.debug("REST request to get Tax : {}", id);
+        List<TaxModel> taxes=taxService.findByTaxCategoryId(id);
+        return new ResponseEntity<>(taxes,  HttpStatus.OK);
     }
 }

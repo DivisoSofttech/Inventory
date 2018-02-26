@@ -69,9 +69,9 @@ entity Tax{
 	name String required , //unique
 	description String,
 	rate Double required,
-	taxType TaxTypes
+	type TaxType
 }
-enum TaxTypes {
+enum TaxType {
 	CGST, SGST, IGST, UGST, CESS
 }
 relationship OneToOne{
