@@ -198,6 +198,6 @@ public interface StockLineService {
 
 	List<StockLineModel> findAllStockLinesMarsheld(ArrayList<StockLineDTO> dtoList);
 
-	Page<StockLineDTO> findByProduct_Categories_IdAndProduct_VisibleTrue(Long id, Pageable pageable);
+	Page<StockLineDTO> findByProduct_Category_IdAndProduct_VisibleTrue(Long id, Pageable pageable);
 
 }

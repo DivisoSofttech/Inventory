@@ -404,9 +404,9 @@ public class StockLineServiceImpl implements StockLineService {
 	}
 
 	@Override
-	public Page<StockLineDTO> findByProduct_Categories_IdAndProduct_VisibleTrue(Long id, Pageable pageable) {
+	public Page<StockLineDTO> findByProduct_Category_IdAndProduct_VisibleTrue(Long id, Pageable pageable) {
 		log.debug("Request to get all stock-lines by product  category id ", id);
-		return stockLineRepository.findByProduct_Categories_IdAndProduct_VisibleTru(id, pageable)
+		return stockLineRepository.findByProduct_Category_IdAndProduct_VisibleTrue(id, pageable)
 				.map(stockLineMapper::toDto);
 	}
 

@@ -44,5 +44,5 @@ public interface CategoryService {
      */
     void delete(Long id);
 
-	List<CategoryModel> findAllCategories(Pageable pageable);
-}
+/*	List<CategoryModel> findAllCategories(Pageable pageable);
+*/}

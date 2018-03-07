@@ -5,7 +5,7 @@ package com.diviso.inventory.model;
 public class StatusModel {
 	
 	  private String description ;
-
+	  public StatusModel() {}
 	  
 	  public StatusModel(Long id2, String description2, String name2, String reference2) {
 		// TODO Auto-generated constructor stub

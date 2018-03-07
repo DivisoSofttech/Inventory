@@ -97,7 +97,7 @@ public class CategoryServiceImpl implements CategoryService {
         categoryRepository.delete(id);
     }
 
-	@Override
+/*	@Override
 	public List<CategoryModel> findAllCategories(Pageable pageable) {
 		Page<Category> categories=categoryRepository.findAllCategories(pageable);
 		List<CategoryModel> categoryModelList=new ArrayList<CategoryModel>();
@@ -112,5 +112,5 @@ public class CategoryServiceImpl implements CategoryService {
 				categoryModelList.add(categoryModel);
 		}
 		return categoryModelList;
-	}
+	}*/
 }

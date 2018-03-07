@@ -4,6 +4,7 @@ package com.diviso.inventory.model;
 public class BarcodeModel {
 	private Long id;
 	private String code;
+	public BarcodeModel(){}
 	public BarcodeModel(Long id2, String code2, String description2) {
 		id=id2;
 		code=code2;

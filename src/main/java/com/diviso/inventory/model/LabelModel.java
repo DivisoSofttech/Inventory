@@ -11,7 +11,7 @@ public class LabelModel   {
 
   @JsonProperty("id")
   private Long id = null;
-
+  public LabelModel() {}
   public LabelModel(Long id2, String description2, String name2) {
 	// TODO Auto-generated constructor stub
 	  id=id2;

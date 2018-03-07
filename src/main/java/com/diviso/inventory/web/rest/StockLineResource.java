@@ -297,7 +297,7 @@ public class StockLineResource {
     @Timed
     public ResponseEntity<List<StockLineDTO>> getAllStocksByProductCategoryId(@PathVariable Long id,Pageable pageable) {
          log.debug("REST request to get a page of stockLines by category id ",id);
-        Page<StockLineDTO> page = stockLineService.findByProduct_Categories_IdAndProduct_VisibleTrue(id,pageable);
+        Page<StockLineDTO> page = stockLineService.findByProduct_Category_IdAndProduct_VisibleTrue(id,pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/stock-lines/findByProductCategoryId");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }

@@ -14,7 +14,6 @@ import org.springframework.data.jpa.repository.*;
 @Repository
 public interface CategoryRepository extends JpaRepository<Category, Long> {
 
-	@Query(value="select distinct * from Category")
-	Page<Category> findAllCategories(Pageable pageable);
+	
 
 }

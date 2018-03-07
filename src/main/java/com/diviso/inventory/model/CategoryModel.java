@@ -11,6 +11,7 @@ public class CategoryModel {
 	private Boolean visible;
 	private String description;
 	private List<ProductModel> products=new ArrayList<ProductModel>();
+	public CategoryModel() {}
 	public CategoryModel(Long id2, String description2, byte[] image2, String imageContentType2, String name2) {
 		// TODO Auto-generated constructor stub
 		id=id2;

@@ -6,6 +6,9 @@ import java.time.LocalDate;
 public class NoteModel {
 	private Long id;
 	private Long productId;
+	public NoteModel() {
+		
+	}
 
 	public NoteModel(Long id2, LocalDate dateOfCreation2, String matter2) {
 		// TODO Auto-generated constructor stub
