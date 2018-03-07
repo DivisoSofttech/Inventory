@@ -2,9 +2,18 @@ package com.diviso.inventory.service.impl;
 
 import com.diviso.inventory.service.CategoryService;
 import com.diviso.inventory.domain.Category;
+import com.diviso.inventory.domain.Product;
+import com.diviso.inventory.model.CategoryModel;
+import com.diviso.inventory.model.ProductModel;
 import com.diviso.inventory.repository.CategoryRepository;
 import com.diviso.inventory.service.dto.CategoryDTO;
 import com.diviso.inventory.service.mapper.CategoryMapper;
+import com.diviso.inventory.service.mapper.CategoryModelMapper;
+import com.diviso.inventory.service.mapper.ProductModelMapper;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -25,10 +34,14 @@ public class CategoryServiceImpl implements CategoryService {
     private final CategoryRepository categoryRepository;
 
     private final CategoryMapper categoryMapper;
+    private final CategoryModelMapper categoryModelMapper;
+    private final ProductModelMapper productModelMapper;
 
-    public CategoryServiceImpl(CategoryRepository categoryRepository, CategoryMapper categoryMapper) {
+    public CategoryServiceImpl(CategoryRepository categoryRepository, CategoryMapper categoryMapper,CategoryModelMapper categoryModelMapper,ProductModelMapper productModelMapper) {
         this.categoryRepository = categoryRepository;
         this.categoryMapper = categoryMapper;
+        this.categoryModelMapper=categoryModelMapper;
+        this.productModelMapper=productModelMapper;
     }
 
     /**
@@ -83,4 +96,21 @@ public class CategoryServiceImpl implements CategoryService {
         log.debug("Request to delete Category : {}", id);
         categoryRepository.delete(id);
     }
+
+	@Override
+	public List<CategoryModel> findAllCategories(Pageable pageable) {
+		Page<Category> categories=categoryRepository.findAllCategories(pageable);
+		List<CategoryModel> categoryModelList=new ArrayList<CategoryModel>();
+		for(Category category:categories.getContent()) {
+			CategoryModel categoryModel=categoryModelMapper.toModel(category);
+			List<ProductModel> productModelList=new ArrayList<ProductModel>();
+				for(Product product:category.getProducts()) {
+					ProductModel productModel=productModelMapper.toModel(product);
+					productModelList.add(productModel);
+					categoryModel.setProducts(productModelList);
+			}
+				categoryModelList.add(categoryModel);
+		}
+		return categoryModelList;
+	}
 }

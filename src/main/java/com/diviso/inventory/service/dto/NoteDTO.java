@@ -3,8 +3,6 @@ package com.diviso.inventory.service.dto;
 
 import java.time.LocalDate;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
 
 /**

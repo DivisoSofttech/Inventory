@@ -273,19 +273,36 @@ public class StockLineResource {
     }
     
     /**
-     * GET  /stock-lines/findByProductCategory/:name  get all the stockLines by category name.
+     * GET  /stock-lines/findByProductCategoryName/:name  get all the stockLines by category name.
      *
      * @param pageable the pagination information Product_ the name of the category
      * @return the ResponseEntity with status 200 (OK) Product_ the list of stockLines in body
      */
-    @GetMapping("/stock-lines/findByProductCategory/{name}")
+    @GetMapping("/stock-lines/findByProductCategoryName/{name}")
     @Timed
-    public ResponseEntity<List<StockLineDTO>> getAllStocksByProductCategory(@PathVariable String name,Pageable pageable) {
+    public ResponseEntity<List<StockLineDTO>> getAllStocksByProductCategoryName(@PathVariable String name,Pageable pageable) {
         log.debug("REST request to get a page of stockLines by category name ",name);
         Page<StockLineDTO> page = stockLineService.findByProduct_Categories_NameAndProduct_VisibleTrue(name,pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/stock-lines/findByProductCategory");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
+    
+    /**
+     * GET  /stock-lines/findByProductCategoryId/:id  get all the stockLines by category name.
+     *
+     * @param pageable the pagination information Product_ the name of the category
+     * @return the ResponseEntity with status 200 (OK) Product_ the list of stockLines in body
+     */
+    @GetMapping("/stock-lines/findByProductCategoryId/{id}")
+    @Timed
+    public ResponseEntity<List<StockLineDTO>> getAllStocksByProductCategoryId(@PathVariable Long id,Pageable pageable) {
+         log.debug("REST request to get a page of stockLines by category id ",id);
+        Page<StockLineDTO> page = stockLineService.findByProduct_Categories_IdAndProduct_VisibleTrue(id,pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/stock-lines/findByProductCategoryId");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+    
+    
     
     /**
      * GET  /stock-lines/findByProductDateOfMfd/:dateOfMfd  get all the stockLines by dateOfMfd.
@@ -412,6 +429,22 @@ public class StockLineResource {
         StockLineModel stockLineModel = stockLineService.findMarsheldStockLine(id);
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(stockLineModel));
     }
+    
+    /**
+     * GET  /stock-lines : get all the stockLines.
+     *
+     * @param pageable the pagination information
+     * @return the ResponseEntity with status 200 (OK) and the list of stockLines in body
+     */
+    @GetMapping("/stock-lines/findAllMarsheld")
+    @Timed
+    public ResponseEntity<List<StockLineModel>> getAllStockLinesMarsheld(ArrayList<StockLineDTO> dtoList) {
+        log.debug("REST request to get a page of StockLines");
+        List<StockLineModel> list = stockLineService.findAllStockLinesMarsheld(dtoList);
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+    
+    
     
     
     

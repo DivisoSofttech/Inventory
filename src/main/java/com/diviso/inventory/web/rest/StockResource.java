@@ -22,6 +22,7 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -212,6 +213,20 @@ public class StockResource {
         log.debug("REST request to get Stock : {}", id);
         StockModel stockModel = stockService.findMarsheldStockById(id);
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(stockModel));
+    }
+    
+    /**
+     * GET  /stocks : get all the stocks.
+     *
+     * @param pageable the pagination information
+     * @return the ResponseEntity with status 200 (OK) StockLine_Product_ the list of stocks in body
+     */
+    @GetMapping("/stocks/findAllMarsheld")
+    @Timed
+    public ResponseEntity<List<StockModel>> getAllStocksMarsheld(ArrayList<StockDTO> dtoList) {
+        log.debug("REST request to get a page of Stocks");
+        List<StockModel> list = stockService.findAllStocksMarsheld(dtoList);
+        return new ResponseEntity<>(list,  HttpStatus.OK);
     }
    
 }

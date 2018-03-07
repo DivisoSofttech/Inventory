@@ -1,12 +1,16 @@
 package com.diviso.inventory.model;
 
-
+import java.util.ArrayList;
+import java.util.List;
 
 public class CategoryModel {
 	private Long id;
 	private String name;
 	private byte[] image;
-
+	private String imageContentType;
+	private Boolean visible;
+	private String description;
+	private List<ProductModel> products=new ArrayList<ProductModel>();
 	public CategoryModel(Long id2, String description2, byte[] image2, String imageContentType2, String name2) {
 		// TODO Auto-generated constructor stub
 		id=id2;
@@ -64,7 +68,13 @@ public class CategoryModel {
 		this.description = description;
 	}
 
-	private String imageContentType;
-	private Boolean visible;
-	private String description;
+	public List<ProductModel> getProducts() {
+		return products;
+	}
+
+	public void setProducts(List<ProductModel> products) {
+		this.products = products;
+	}
+
+	
 }

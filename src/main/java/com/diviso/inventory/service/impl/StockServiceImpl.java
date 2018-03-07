@@ -200,4 +200,14 @@ public class StockServiceImpl implements StockService {
 		System.out.println(stockModel);
 		return stockModel;
 	}
+
+	@Override
+	public List<StockModel> findAllStocksMarsheld(ArrayList<StockDTO> dtoList) {
+		List<StockModel> list=new ArrayList<StockModel>();
+		for(StockDTO stockDTO:dtoList) {
+			StockModel stockModel=findMarsheldStockById(stockDTO.getId());
+			list.add(stockModel);
+		}
+		return list;
+	}
 }

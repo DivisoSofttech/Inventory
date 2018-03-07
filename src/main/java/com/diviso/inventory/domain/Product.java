@@ -97,6 +97,7 @@ public class Product implements Serializable {
     @ManyToOne
     private Status status;
 
+    
     @ManyToOne
     private TaxCategory taxCategory;
 

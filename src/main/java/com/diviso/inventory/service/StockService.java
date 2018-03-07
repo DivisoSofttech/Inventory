@@ -5,6 +5,8 @@ import com.diviso.inventory.model.StockModel;
 import com.diviso.inventory.service.dto.StockDTO;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -86,5 +88,7 @@ public interface StockService {
 	Page<StockDTO> findByStatus_Name(String status, Pageable pageable);
 
 	StockModel findMarsheldStockById(Long id);
+
+	List<StockModel> findAllStocksMarsheld(ArrayList<StockDTO> dtoList);
    
 }

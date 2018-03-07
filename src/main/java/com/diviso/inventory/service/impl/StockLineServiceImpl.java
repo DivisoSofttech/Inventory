@@ -392,4 +392,23 @@ public class StockLineServiceImpl implements StockLineService {
 		StockLineModel stockLineModel=new StockLineModel(stockLine.getId(),stockLine.getReference(),stockLine.getBuyPrice(),stockLine.getGrossProfit(),stockLine.getSellPriceExclusive(),stockLine.getSellPriceInclusive(),stockLine.getMargin(),stockLine.getInfrastructureId(),stockLine.getLocationId(),productModel,stockLine.getUnits(),uomModel);
 		return stockLineModel;
 	}
+
+	@Override
+	public List<StockLineModel> findAllStockLinesMarsheld(ArrayList<StockLineDTO> dtoList) {
+		List<StockLineModel> list=new ArrayList<StockLineModel>();
+		for(StockLineDTO stockLineDTO:dtoList) {
+			StockLineModel stockLineModel=findMarsheldStockLine(stockLineDTO.getId());
+			list.add(stockLineModel);
+		}
+		return list;
+	}
+
+	@Override
+	public Page<StockLineDTO> findByProduct_Categories_IdAndProduct_VisibleTrue(Long id, Pageable pageable) {
+		log.debug("Request to get all stock-lines by product  category id ", id);
+		return stockLineRepository.findByProduct_Categories_IdAndProduct_VisibleTru(id, pageable)
+				.map(stockLineMapper::toDto);
+	}
+
+	
 }

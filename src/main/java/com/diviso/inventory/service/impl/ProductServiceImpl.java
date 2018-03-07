@@ -18,12 +18,11 @@ import com.diviso.inventory.model.TaxCategoryModel;
 import com.diviso.inventory.repository.ProductRepository;
 import com.diviso.inventory.service.dto.ProductDTO;
 import com.diviso.inventory.service.mapper.ProductMapper;
+import com.diviso.inventory.service.mapper.ProductModelMapper;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -44,10 +43,13 @@ public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
 
     private final ProductMapper productMapper;
+    
+    private final ProductModelMapper  productModelMapper;
 
-    public ProductServiceImpl(ProductRepository productRepository, ProductMapper productMapper) {
+    public ProductServiceImpl(ProductRepository productRepository, ProductMapper productMapper,ProductModelMapper productModelMapper) {
         this.productRepository = productRepository;
         this.productMapper = productMapper;
+        this.productModelMapper=productModelMapper;
     }
 
     /**
@@ -306,7 +308,7 @@ public class ProductServiceImpl implements ProductService {
 	public ProductModel findMarsheldProduct(Long id) {
 		
 		Product product= productRepository.findOne(id);
-		ProductModel productModel=new ProductModel(product.getId(),product.getName(),product.isVisible(),product.getDateOfExpiry(),product.getDateOfMfd(),product.getImage(),product.getImageContentType(),product.getDescription(),product.getMaximumStockLevel(),product.getSearchkey(),product.getSku(),product.getMpn(),product.getReOrderLevel(),product.getReference());
+		ProductModel productModel=productModelMapper.toModel(product);
 		Barcode barcode=product.getBarcode();
 		Category category=product.getCategory();
 		TaxCategory taxCategory=product.getTaxCategory();
@@ -325,6 +327,7 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
+	@Transactional(readOnly=true)
 	public List<NoteModel> findNoteByProductId(Long id,Pageable pageable) {
 		Page<Note> notes=productRepository.findNotesByProductId(id, pageable);
 		List<NoteModel> noteModels=new ArrayList<NoteModel> ();
@@ -333,4 +336,16 @@ public class ProductServiceImpl implements ProductService {
 		}
 		return noteModels;
 	}
+
+	@Override
+	@Transactional(readOnly=true)
+	public List<ProductModel> findAllProductsMarsheld(ArrayList<ProductDTO> dtoList, Pageable pageable) {
+			List<ProductModel> modelList=new ArrayList<ProductModel>();
+			for(ProductDTO dto:dtoList) {
+				ProductModel productModel=findMarsheldProduct(dto.getId());
+				modelList.add(productModel);
+			}
+				return modelList;
+	}
+
 }

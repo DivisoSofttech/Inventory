@@ -23,6 +23,7 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -99,6 +100,22 @@ public class ProductResource {
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/products");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
+    
+    /**
+     * GET  /products : get all the products.
+     *
+     * @param pageable the pagination information
+     * @return the ResponseEntity with status 200 (OK) and the list of products in body
+     */
+    @GetMapping("/products/findAllMarsheld")
+    @Timed
+    public ResponseEntity<List<ProductModel>> getAllProductsMarsheld(ArrayList<ProductDTO> dtoList,Pageable pageable) {
+        log.debug("REST request to get a page of Products");
+        List<ProductModel> list = productService.findAllProductsMarsheld(dtoList,pageable);
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+    
+    
 
     /**
      * GET  /products/:id : get the "id" product.

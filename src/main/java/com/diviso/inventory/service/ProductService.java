@@ -1,11 +1,11 @@
 package com.diviso.inventory.service;
 
-import com.diviso.inventory.domain.Product;
 import com.diviso.inventory.model.NoteModel;
 import com.diviso.inventory.model.ProductModel;
 import com.diviso.inventory.service.dto.ProductDTO;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -162,4 +162,7 @@ public interface ProductService {
 	ProductModel findMarsheldProduct(Long id);
 
 	List<NoteModel> findNoteByProductId(Long id,Pageable pageable);
+
+	List<ProductModel> findAllProductsMarsheld(ArrayList<ProductDTO> dtoList, Pageable pageable);
+
 }

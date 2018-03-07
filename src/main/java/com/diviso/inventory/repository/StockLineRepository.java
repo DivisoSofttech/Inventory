@@ -56,4 +56,6 @@ public interface StockLineRepository extends JpaRepository<StockLine, Long> {
 
 	Page<StockLine> findBySupplierRef(Long supplierRef, Pageable pageable);
 
+	Page<StockLine> findByProduct_Categories_IdAndProduct_VisibleTru(Long id, Pageable pageable);
+
 }

@@ -1,6 +1,7 @@
 package com.diviso.inventory.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import com.diviso.inventory.model.CategoryModel;
 import com.diviso.inventory.service.CategoryService;
 import com.diviso.inventory.web.rest.errors.BadRequestAlertException;
 import com.diviso.inventory.web.rest.util.HeaderUtil;
@@ -124,4 +125,15 @@ public class CategoryResource {
         categoryService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
+    
+    @GetMapping("/categories/marsheld")
+    @Timed
+    public ResponseEntity<List<CategoryModel>> getAllMarsheldcategories(Pageable pageable){
+    	log.debug("REST request to delete Category : {}");
+    	List<CategoryModel> list= categoryService.findAllCategories(pageable);
+    	
+    	return new ResponseEntity<List<CategoryModel>>(list,HttpStatus.OK);
+    }
+    
 }
+

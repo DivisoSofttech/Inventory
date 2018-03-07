@@ -195,4 +195,9 @@ public interface StockLineService {
 	List<StockLineDTO> updateStockLevel(ArrayList<StockLineDTO> stockLines);
 
 	StockLineModel findMarsheldStockLine(Long id);
+
+	List<StockLineModel> findAllStockLinesMarsheld(ArrayList<StockLineDTO> dtoList);
+
+	Page<StockLineDTO> findByProduct_Categories_IdAndProduct_VisibleTrue(Long id, Pageable pageable);
+
 }
