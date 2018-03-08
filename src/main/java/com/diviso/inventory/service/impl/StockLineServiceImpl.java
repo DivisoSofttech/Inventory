@@ -1,16 +1,26 @@
 package com.diviso.inventory.service.impl;
 
 import com.diviso.inventory.service.StockLineService;
+import com.diviso.inventory.domain.Barcode;
+import com.diviso.inventory.domain.Category;
+import com.diviso.inventory.domain.Label;
 import com.diviso.inventory.domain.Product;
+import com.diviso.inventory.domain.Status;
 import com.diviso.inventory.domain.StockLine;
+import com.diviso.inventory.domain.TaxCategory;
 import com.diviso.inventory.domain.Uom;
+import com.diviso.inventory.model.BarcodeModel;
+import com.diviso.inventory.model.CategoryModel;
+import com.diviso.inventory.model.LabelModel;
 import com.diviso.inventory.model.ProductModel;
+import com.diviso.inventory.model.StatusModel;
 import com.diviso.inventory.model.StockLineModel;
 import com.diviso.inventory.model.TaxCategoryModel;
 import com.diviso.inventory.model.UomModel;
 import com.diviso.inventory.repository.StockLineRepository;
 import com.diviso.inventory.service.dto.StockLineDTO;
 import com.diviso.inventory.service.mapper.StockLineMapper;
+import com.diviso.inventory.service.mapper.StockLineModelMapper;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -35,10 +45,14 @@ public class StockLineServiceImpl implements StockLineService {
 	private final StockLineRepository stockLineRepository;
 
 	private final StockLineMapper stockLineMapper;
+	
+	private final StockLineModelMapper stockLineModelMapper;
+	
 
-	public StockLineServiceImpl(StockLineRepository stockLineRepository, StockLineMapper stockLineMapper) {
+	public StockLineServiceImpl(StockLineRepository stockLineRepository, StockLineMapper stockLineMapper,StockLineModelMapper stockLineModelMapper) {
 		this.stockLineRepository = stockLineRepository;
 		this.stockLineMapper = stockLineMapper;
+		this.stockLineModelMapper=stockLineModelMapper;
 	}
 
 	/**
@@ -386,13 +400,29 @@ public class StockLineServiceImpl implements StockLineService {
 		uomModel.setId(uom.getId());
 		uomModel.setName(uom.getName());
 		ProductModel productModel=new ProductModel();
+		Barcode barcode=product.getBarcode();
+		Category category=product.getCategory();
+		TaxCategory taxCategory=product.getTaxCategory();
+		Status status=product.getStatus();
+		productModel.setBarcode(new BarcodeModel(barcode.getId(),barcode.getCode(),barcode.getDescription()));
+		productModel.setCategoryModel(new CategoryModel(category.getId(),category.getDescription(),category.getImage(),category.getImageContentType(),category.getName()));
+		productModel.setTaxCategoryModel(new TaxCategoryModel(taxCategory.getId(),taxCategory.getDescription(),taxCategory.getName()));
+		List<LabelModel> list=new ArrayList<LabelModel>();
+		for(Label label:product.getLabels()) {
+			LabelModel labelModel=new LabelModel(label.getId(),label.getDescription(),label.getName());
+			list.add(labelModel);
+		}
+		productModel.setLabels(list);
+		productModel.setStatus(new StatusModel(status.getId(),status.getDescription(),status.getName(),status.getReference()));
 		productModel.setId(product.getId());
 		productModel.setName(product.getName());
 		productModel.setTaxCategoryModel(new TaxCategoryModel(product.getTaxCategory().getId(), product.getTaxCategory().getDescription(), product.getTaxCategory().getName()));
-		StockLineModel stockLineModel=new StockLineModel(stockLine.getId(),stockLine.getReference(),stockLine.getBuyPrice(),stockLine.getGrossProfit(),stockLine.getSellPriceExclusive(),stockLine.getSellPriceInclusive(),stockLine.getMargin(),stockLine.getInfrastructureId(),stockLine.getLocationId(),productModel,stockLine.getUnits(),uomModel);
+		StockLineModel stockLineModel=stockLineModelMapper.toModel(stockLine);
+		stockLineModel.setUom(uomModel);
+		stockLineModel.setProduct(productModel);
 		return stockLineModel;
 	}
-
+ 
 	@Override
 	public List<StockLineModel> findAllStockLinesMarsheld(ArrayList<StockLineDTO> dtoList) {
 		List<StockLineModel> list=new ArrayList<StockLineModel>();

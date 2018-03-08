@@ -436,9 +436,9 @@ public class StockLineResource {
      * @param pageable the pagination information
      * @return the ResponseEntity with status 200 (OK) and the list of stockLines in body
      */
-    @GetMapping("/stock-lines/findAllMarsheld")
+    @PostMapping("/stock-lines/findAllMarsheld")
     @Timed
-    public ResponseEntity<List<StockLineModel>> getAllStockLinesMarsheld(ArrayList<StockLineDTO> dtoList) {
+    public ResponseEntity<List<StockLineModel>> getAllStockLinesMarsheld(@RequestBody ArrayList<StockLineDTO> dtoList) {
         log.debug("REST request to get a page of StockLines");
         List<StockLineModel> list = stockLineService.findAllStockLinesMarsheld(dtoList);
         return new ResponseEntity<>(list, HttpStatus.OK);

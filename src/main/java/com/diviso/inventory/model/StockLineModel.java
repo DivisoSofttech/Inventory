@@ -4,6 +4,9 @@ package com.diviso.inventory.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class StockLineModel {
+	
+	public StockLineModel() {}
+	
 	@Override
 	public String toString() {
 		return "StockLineModel [buyPrice=" + buyPrice + ", grossProfit=" + grossProfit + ", id=" + id
